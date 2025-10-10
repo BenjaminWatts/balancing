@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Python client library for the Elexon BMRS (Balancing Mechanism Reporting Service) API"
 readme = {file = "README.md", content-type = "text/markdown"}
 requires-python = ">=3.8"
-license = {text = "MIT"}
+license = {file = "LICENSE"}
 authors = [
     {name = "Benjamin Watts", email = "benjamin.watts@example.com"}
 ]
@@ -62,10 +62,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/benjaminwatts/elexon-bmrs"
-Documentation = "https://github.com/benjaminwatts/elexon-bmrs#readme"
-Repository = "https://github.com/benjaminwatts/elexon-bmrs"
-Issues = "https://github.com/benjaminwatts/elexon-bmrs/issues"
+Homepage = "https://github.com/BenjaminWatts/balancing"
+Documentation = "https://benjaminwatts.github.io/balancing/"
+Repository = "https://github.com/BenjaminWatts/balancing"
+Issues = "https://github.com/BenjaminWatts/balancing/issues"
 
 [tool.setuptools]
 include-package-data = true
