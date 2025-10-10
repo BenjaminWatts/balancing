@@ -177,9 +177,10 @@ help(client.get_balancing_dynamic)
 
 #### Complete Documentation
 
-- **[All Endpoints](https://benjaminwatts.github.io/balancing/api/all-endpoints/)** - Complete endpoint reference
-- **[Method Reference](https://benjaminwatts.github.io/balancing/api/method-reference/)** - Organized by category
-- **[Client API](https://benjaminwatts.github.io/balancing/api/client/)** - Auto-generated docs
+- **[All Endpoints](https://benjaminwatts.github.io/balancing/api/all-endpoints)** - Complete endpoint reference
+- **[Method Reference](https://benjaminwatts.github.io/balancing/api/method-reference)** - Organized by category
+- **[Client API](https://benjaminwatts.github.io/balancing/api/client)** - Auto-generated docs
+- **[Full Documentation](https://benjaminwatts.github.io/balancing/)** - Complete documentation site
 
 #### Quick Examples
 
