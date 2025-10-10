@@ -23,6 +23,16 @@ from elexon_bmrs.models import (
     SystemPricesResponse,
     SystemFrequencyResponse,
     ImbalancePricesResponse,
+    BOALF,
+    BOD,
+    PN,
+    B1610,
+    SettlementStackPair,
+    AcceptedVolumes,
+    BOALFResponse,
+    BODResponse,
+    PNResponse,
+    B1610Response,
 )
 from elexon_bmrs.generated_client import GeneratedBMRSMethods
 
@@ -248,6 +258,353 @@ class BMRSClient(GeneratedBMRSMethods):
 
     # All API methods are now provided by GeneratedBMRSMethods
     # The generated methods use the correct endpoint paths from the OpenAPI specification
+
+    # ==================== BOALF and Balancing Mechanism Methods ====================
+
+    def get_latest_acceptances(self) -> List[BOALF]:
+        """Fetch the latest balancing mechanism acceptances.
+        
+        Endpoint: GET /balancing/acceptances/all/latest
+        Reference: https://bmrs.elexon.co.uk/api-documentation/endpoint/balancing/acceptances/all/latest
+        
+        Returns:
+            List of validated BOALF (acceptance) objects
+        """
+        endpoint = "/balancing/acceptances/all/latest"
+        
+        try:
+            result = self._make_request("GET", endpoint)
+            
+            # Extract raw data
+            raw_data = []
+            if isinstance(result, dict) and 'data' in result:
+                raw_data = result['data']
+            elif isinstance(result, list):
+                raw_data = result
+            else:
+                logger.warning(f"Unexpected response format: {type(result)}")
+                return []
+            
+            # Validate and parse through Pydantic models
+            acceptances = []
+            validation_errors = 0
+            for item in raw_data:
+                try:
+                    acceptance = BOALF(**item)
+                    acceptances.append(acceptance)
+                except Exception as e:
+                    validation_errors += 1
+                    logger.warning(f"Validation error for acceptance {item.get('acceptanceNumber')}: {e}")
+            
+            if validation_errors > 0:
+                logger.warning(f"⚠️  {validation_errors}/{len(raw_data)} acceptances failed validation")
+            
+            return acceptances
+                
+        except Exception as e:
+            logger.error(f"Error fetching latest acceptances: {e}")
+            raise
+
+    def get_acceptances_by_time(
+        self,
+        from_datetime: datetime,
+        to_datetime: datetime
+    ) -> List[BOALF]:
+        """Fetch acceptances within a time range using BOALF dataset.
+        
+        Endpoint: GET /datasets/BOALF
+        Reference: https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/BOALF
+        
+        Args:
+            from_datetime: Start of time range
+            to_datetime: End of time range
+            
+        Returns:
+            List of validated BOALF (acceptance) objects
+        """
+        endpoint = "/datasets/BOALF"
+        
+        # Format as ISO with Z suffix (UTC)
+        params = {
+            "from": from_datetime.strftime("%Y-%m-%dT%H:%M:%S") + "Z",
+            "to": to_datetime.strftime("%Y-%m-%dT%H:%M:%S") + "Z"
+        }
+        
+        try:
+            result = self._make_request("GET", endpoint, params=params)
+            
+            # Extract raw data
+            raw_data = []
+            if isinstance(result, dict) and 'data' in result:
+                raw_data = result['data']
+            elif isinstance(result, list):
+                raw_data = result
+            else:
+                logger.warning(f"Unexpected BOALF response format: {type(result)}")
+                return []
+            
+            # Validate and parse
+            acceptances = []
+            validation_errors = 0
+            for item in raw_data:
+                try:
+                    acceptances.append(BOALF(**item))
+                except Exception as e:
+                    validation_errors += 1
+                    if validation_errors <= 3:  # Only log first few
+                        logger.warning(f"Validation error for acceptance {item.get('acceptanceNumber')}: {e}")
+            
+            if validation_errors > 0:
+                logger.warning(f"⚠️  {validation_errors}/{len(raw_data)} acceptances failed validation")
+            
+            return acceptances
+                
+        except Exception as e:
+            logger.error(f"Error fetching acceptances by time (BOALF): {e}")
+            raise
+
+    def get_physical_notifications(
+        self,
+        settlement_date: datetime = None,
+        settlement_period: int = None
+    ) -> List[PN]:
+        """Fetch Physical Notification (PN) data.
+        
+        Endpoint: GET /datasets/PN
+        Reference: https://data.elexon.co.uk/bmrs/api/v1/datasets/PN
+        
+        Args:
+            settlement_date: Date of the settlement period (YYYY-MM-DD) - used with settlement_period
+            settlement_period: Settlement period number (1-48) - used with settlement_date
+            
+        Returns:
+            List of validated PN objects
+        """
+        endpoint = "/datasets/PN"
+        
+        # Determine which parameters to use
+        params = {
+            "settlementDate": settlement_date.strftime("%Y-%m-%d"),
+            "settlementPeriod": settlement_period
+        }
+        
+        try:
+            result = self._make_request("GET", endpoint, params=params)
+            
+            # Extract raw data
+            raw_data = []
+            if isinstance(result, dict) and 'data' in result:
+                raw_data = result['data']
+            elif isinstance(result, list):
+                raw_data = result
+            else:
+                logger.warning(f"Unexpected PN response format: {type(result)}")
+                return []
+            
+            # Validate and parse
+            pns = []
+            validation_errors = 0
+            for item in raw_data:
+                try:
+                    pns.append(PN(**item))
+                except Exception as e:
+                    validation_errors += 1
+                    if validation_errors <= 3:  # Only log first few
+                        logger.warning(f"Validation error for PN record: {e}")
+            
+            if validation_errors > 0:
+                logger.warning(f"⚠️  {validation_errors}/{len(raw_data)} PNs failed validation")
+            
+            return pns
+                
+        except Exception as e:
+            logger.error(f"Error fetching physical notifications: {e}")
+            raise
+
+    def get_bid_offer_data(
+        self,
+        from_datetime: datetime,
+        to_datetime: datetime
+    ) -> List[BOD]:
+        """Fetch Bid-Offer Data (BOD) for a time range.
+        
+        Endpoint: GET /datasets/BOD
+        Reference: https://bmrs.elexon.co.uk/api-documentation/endpoint/datasets/BOD
+        
+        Args:
+            from_datetime: Start of time range (ISO format)
+            to_datetime: End of time range (ISO format)
+            
+        Returns:
+            List of validated BOD objects
+        """
+        endpoint = "/datasets/BOD"
+        
+        # Format as ISO with Z suffix (UTC)
+        params = {
+            "from": from_datetime.strftime("%Y-%m-%dT%H:%M") + "Z",
+            "to": to_datetime.strftime("%Y-%m-%dT%H:%M") + "Z",
+            "format": "json"
+        }
+        
+        try:
+            result = self._make_request("GET", endpoint, params=params)
+            
+            # Extract raw data
+            raw_data = []
+            if isinstance(result, dict) and 'data' in result:
+                raw_data = result['data']
+            elif isinstance(result, list):
+                raw_data = result
+            else:
+                logger.warning(f"Unexpected BOD response format: {type(result)}")
+                return []
+            
+            # Validate and parse
+            bods = []
+            for item in raw_data:
+                try:
+                    bods.append(BOD(**item))
+                except Exception as e:
+                    logger.warning(f"Validation error for BOD record: {e}")
+            
+            return bods
+                
+        except Exception as e:
+            logger.error(f"Error fetching bid-offer data: {e}")
+            raise
+
+    def get_actual_generation(
+        self,
+        settlement_date: datetime,
+        settlement_period: int,
+        bmu_id: Optional[str] = None
+    ) -> List[B1610]:
+        """Fetch actual generation output (B1610 dataset).
+        
+        Endpoint: GET /datasets/B1610
+        Reference: https://data.elexon.co.uk/bmrs/api/v1/datasets/B1610
+        
+        Args:
+            settlement_date: Settlement date (YYYY-MM-DD)
+            settlement_period: Settlement period number (1-48)
+            bmu_id: Optional BMU filter
+            
+        Returns:
+            List of validated B1610 objects
+        """
+        endpoint = "/datasets/B1610"
+        
+        params = {
+            "settlementDate": settlement_date.strftime("%Y-%m-%d"),
+            "settlementPeriod": settlement_period
+        }
+        
+        if bmu_id:
+            params["bmUnit"] = bmu_id
+        
+        try:
+            result = self._make_request("GET", endpoint, params=params)
+            
+            # Extract raw data
+            raw_data = []
+            if isinstance(result, dict) and 'data' in result:
+                raw_data = result['data']
+            elif isinstance(result, list):
+                raw_data = result
+            else:
+                logger.warning(f"Unexpected B1610 response format: {type(result)}")
+                return []
+            
+            # Validate and parse
+            outputs = []
+            for item in raw_data:
+                try:
+                    outputs.append(B1610(**item))
+                except Exception as e:
+                    logger.warning(f"Validation error for B1610 record: {e}")
+            
+            return outputs
+                
+        except Exception as e:
+            logger.error(f"Error fetching actual generation (B1610): {e}")
+            raise
+
+    def get_settlement_stack(
+        self,
+        stack_type: str,
+        settlement_date: datetime,
+        settlement_period: int
+    ) -> List[SettlementStackPair]:
+        """Fetch settlement stack (bid or offer) for validation/testing.
+        
+        Endpoint: GET /balancing/settlement/stack/all/{bid|offer}/{date}/{period}
+        
+        Args:
+            stack_type: Either "bid" or "offer"
+            settlement_date: Settlement date (YYYY-MM-DD)
+            settlement_period: Settlement period number (1-48)
+            
+        Returns:
+            List of acceptance records in the stack
+        """
+        if stack_type not in ["bid", "offer"]:
+            raise ValueError("stack_type must be 'bid' or 'offer'")
+        
+        endpoint = f"/balancing/settlement/stack/all/{stack_type}/{settlement_date.strftime('%Y-%m-%d')}/{settlement_period}"
+        
+        try:
+            result = self._make_request("GET", endpoint)
+
+            if isinstance(result, dict) and 'data' in result:
+                ssps = []
+                for item in result['data']:
+                    try:
+                        ssps.append(SettlementStackPair(**item))    
+                    except Exception as e:
+                        logger.warning(f"Validation error for settlement stack pair: {e}")
+                return ssps
+            elif isinstance(result, list):
+                ssps = []
+                for item in result:
+                    try:
+                        ssps.append(SettlementStackPair(**item))
+                    except Exception as e:
+                        logger.warning(f"Validation error for settlement stack pair: {e}")
+                return ssps
+            else:
+                logger.warning(f"Unexpected settlement stack response format: {type(result)}")
+                return []
+                
+        except Exception as e:
+            logger.error(f"Error fetching settlement stack: {e}")
+            raise
+
+    def get_bm_units_reference(self) -> List[Dict[str, Any]]:
+        """Fetch BM Units reference data including transmission loss factors.
+        
+        Endpoint: GET /reference/bmunits/all
+        Reference: https://bmrs.elexon.co.uk/api-documentation/endpoint/reference/bmunits/all
+        
+        Returns:
+            List of BM Unit reference records
+        """
+        endpoint = "/reference/bmunits/all"
+        
+        try:
+            result = self._make_request("GET", endpoint)
+            
+            if isinstance(result, dict) and 'data' in result:
+                return result['data']
+            elif isinstance(result, list):
+                return result
+            else:
+                logger.warning(f"Unexpected BM Units reference response format: {type(result)}")
+                return []
+                
+        except Exception as e:
+            logger.error(f"Error fetching BM Units reference data: {e}")
+            raise
 
     def close(self) -> None:
         """Close the HTTP session."""
