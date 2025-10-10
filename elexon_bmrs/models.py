@@ -226,19 +226,45 @@ class B1610(BaseModel):
 
 
 class SettlementStackPair(BaseModel):
-    """Settlement stack pair for bid/offer data."""
+    """Settlement stack pair for bid/offer data with TLM information."""
     model_config = ConfigDict(extra='allow', populate_by_name=True)
     
+    # Core identifiers
     bmu_id: str = Field(alias="id")
+    acceptance_id: Optional[int] = Field(alias="acceptanceId", default=None)
+    bid_offer_pair_id: Optional[int] = Field(alias="bidOfferPairId", default=None)
+    settlement_date: str = Field(alias="settlementDate")
+    settlement_period: int = Field(alias="settlementPeriod")
+    start_time: datetime = Field(alias="startTime")
+    created_date_time: datetime = Field(alias="createdDateTime")
+    sequence_number: int = Field(alias="sequenceNumber")
+    
+    # Volume and pricing
     volume: float
-    price: float
+    original_price: float = Field(alias="originalPrice")
+    final_price: float = Field(alias="finalPrice")
+    reserve_scarcity_price: float = Field(alias="reserveScarcityPrice")
+    
+    # Transmission loss adjustments
+    transmission_loss_multiplier: float = Field(alias="transmissionLossMultiplier")
+    tlm_adjusted_volume: Optional[float] = Field(alias="tlmAdjustedVolume", default=None)
+    tlm_adjusted_cost: Optional[float] = Field(alias="tlmAdjustedCost", default=None)
+    
+    # Adjusted volumes (can be None for some records)
+    dmat_adjusted_volume: float = Field(alias="dmatAdjustedVolume")
+    arbitrage_adjusted_volume: Optional[float] = Field(alias="arbitrageAdjustedVolume", default=None)
+    niv_adjusted_volume: Optional[float] = Field(alias="nivAdjustedVolume", default=None)
+    par_adjusted_volume: Optional[float] = Field(alias="parAdjustedVolume", default=None)
+    
+    # Flags (can be None for some records)
     so_flag: bool = Field(alias="soFlag", default=False)
-    transmission_loss_multiplier: Optional[float] = Field(alias="transmissionLossMultiplier", default=None)
-    acceptance_number: Optional[int] = Field(alias="acceptanceNumber", default=None)
+    cadl_flag: Optional[bool] = Field(alias="cadlFlag", default=None)
+    stor_provider_flag: bool = Field(alias="storProviderFlag", default=False)
+    repriced_indicator: bool = Field(alias="repricedIndicator", default=False)
 
 
 class AcceptedVolumes(BaseModel):
-    """Container for accepted volumes data."""
+    """Container for accepted volumes data with TLM-adjusted values."""
     model_config = ConfigDict(extra='allow')
     
     bmu_id: str
@@ -251,6 +277,11 @@ class AcceptedVolumes(BaseModel):
     num_offer_pairs: int
     bid_pairs: List[SettlementStackPair] = Field(default_factory=list)
     offer_pairs: List[SettlementStackPair] = Field(default_factory=list)
+    
+    # TLM-adjusted values
+    tlm_adjusted_bid_volume: Optional[float] = None
+    tlm_adjusted_offer_volume: Optional[float] = None
+    tlm_adjusted_net_volume: Optional[float] = None
 
 
 # Response types for BOALF endpoints
