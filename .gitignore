@@ -133,3 +133,4 @@ Thumbs.db
 API-metadata-*.json
 test_env/
 test_testpypi/
+.envrc

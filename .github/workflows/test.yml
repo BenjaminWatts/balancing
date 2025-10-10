@@ -96,3 +96,4 @@ jobs:
         pip install dist/*.whl
         python -c "from elexon_bmrs import BMRSClient; print('✓ Package imports successfully')"
 
+
