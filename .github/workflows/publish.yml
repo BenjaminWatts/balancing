@@ -58,6 +58,9 @@ jobs:
         name: python-package-distributions
         path: dist/
     
+    - name: Install twine
+      run: pip install twine
+    
     - name: Publish to TestPyPI
       env:
         TWINE_USERNAME: __token__
@@ -80,6 +83,9 @@ jobs:
       with:
         name: python-package-distributions
         path: dist/
+    
+    - name: Install twine
+      run: pip install twine
     
     - name: Publish to PyPI
       env:
