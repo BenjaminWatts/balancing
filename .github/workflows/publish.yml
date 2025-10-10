@@ -33,7 +33,9 @@ jobs:
         pip install build twine
     
     - name: Build distribution packages
-      run: python -m build
+      run: |
+        rm -rf dist/
+        python -m build
     
     - name: Check package integrity
       run: twine check dist/*
