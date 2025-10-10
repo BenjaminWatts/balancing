@@ -1,6 +1,5 @@
 # Include important files in source distribution
 include README.md
-include LICENSE
 include CONTRIBUTING.md
 include QUICKSTART.md
 include requirements.txt
