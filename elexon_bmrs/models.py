@@ -205,13 +205,15 @@ class PN(BaseModel):
     """PN (Physical Notification) - Physical notification data."""
     model_config = ConfigDict(extra='allow', populate_by_name=True)
     
-    bmu_id: str = Field(alias="bmUnit")
-    level_from: float = Field(alias="levelFrom")
-    level_to: float = Field(alias="levelTo")
-    notification_type: str = Field(alias="notificationType")
+    bmu_id: Optional[str] = Field(alias="bmUnit", default=None)
+    level_from: int = Field(alias="levelFrom")
+    level_to: int = Field(alias="levelTo")
+    time_from: datetime = Field(alias="timeFrom")
+    time_to: datetime = Field(alias="timeTo")
     settlement_date: str = Field(alias="settlementDate")
     settlement_period: int = Field(alias="settlementPeriod")
-    national_grid_bm_unit: Optional[str] = Field(alias="nationalGridBmUnit", default=None)
+    national_grid_bm_unit: str = Field(alias="nationalGridBmUnit")
+    dataset: Optional[str] = None
 
 
 class B1610(BaseModel):
