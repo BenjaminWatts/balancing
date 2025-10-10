@@ -143,6 +143,8 @@ class TestBMRSClient:
         client = BMRSClient(api_key="test-key")
         result = client.get_system_demand(from_date=date.today(), to_date=date.today())
 
+        # Result is a dict (not parsed as Pydantic model in base client)
+        assert isinstance(result, dict)
         assert "data" in result
         assert len(result["data"]) == 1
 
@@ -171,8 +173,11 @@ class TestBMRSClient:
             settlement_period_to=48,
         )
 
+        # Result is a dict (not parsed as Pydantic model in base client)
+        assert isinstance(result, dict)
         assert "data" in result
         assert len(result["data"]) == 1
+        assert result["data"][0]["fuelType"] == "WIND"
         # Verify the request was made with correct parameters
         call_args = mock_request.call_args
         assert call_args[1]["params"]["FromSettlementDate"] == "2024-01-01"
