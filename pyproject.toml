@@ -1,0 +1,101 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "elexon-bmrs"
+version = "0.1.0"
+description = "Python client library for the Elexon BMRS (Balancing Mechanism Reporting Service) API"
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Benjamin Watts", email = "benjamin.watts@example.com"}
+]
+maintainers = [
+    {name = "Benjamin Watts", email = "benjamin.watts@example.com"}
+]
+keywords = [
+    "elexon", 
+    "bmrs", 
+    "energy", 
+    "electricity", 
+    "uk", 
+    "api", 
+    "client",
+    "balancing-mechanism",
+    "power-market",
+    "energy-data"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering",
+    "Typing :: Typed",
+]
+
+dependencies = [
+    "requests>=2.31.0",
+    "python-dateutil>=2.8.2",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.7.0",
+    "flake8>=6.1.0",
+    "mypy>=1.5.0",
+    "isort>=5.12.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/benjaminwatts/elexon-bmrs"
+Documentation = "https://github.com/benjaminwatts/elexon-bmrs#readme"
+Repository = "https://github.com/benjaminwatts/elexon-bmrs"
+Issues = "https://github.com/benjaminwatts/elexon-bmrs/issues"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["elexon_bmrs*"]
+exclude = ["tests*", "examples*", "tools*"]
+
+[tool.setuptools.package-data]
+elexon_bmrs = ["py.typed"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --cov=elexon_bmrs --cov-report=term-missing"
+

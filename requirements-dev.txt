@@ -1,0 +1,22 @@
+-r requirements.txt
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.7.0
+flake8>=6.1.0
+mypy>=1.5.0
+isort>=5.12.0
+requests-mock>=1.11.0
+pyyaml>=6.0.0
+
+# Documentation
+mkdocs>=1.5.0
+mkdocs-material>=9.4.0
+mkdocstrings[python]>=0.24.0
+pymdown-extensions>=10.0
+
+# Build and publish tools
+build>=1.0.0
+twine>=4.0.0
+wheel>=0.41.0
+setuptools>=61.0
+

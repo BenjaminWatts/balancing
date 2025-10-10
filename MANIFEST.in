@@ -1,0 +1,44 @@
+# Include important files in source distribution
+include README.md
+include LICENSE
+include CONTRIBUTING.md
+include QUICKSTART.md
+include requirements.txt
+include requirements-dev.txt
+include pyproject.toml
+include setup.py
+
+# Include type information
+include elexon_bmrs/py.typed
+
+# Include documentation
+include *.md
+include PYDANTIC_MODELS_IMPLEMENTATION.md
+include RATE_LIMITING_UPDATE.md
+include SETUP_COMPLETE.md
+include API_KEY_IMPLEMENTATION.md
+
+# Include OpenAPI schema
+recursive-include schema *.json
+
+# Include examples (for documentation)
+recursive-include examples *.py
+
+# Include tests (for source distribution)
+recursive-include tests *.py
+
+# Include tools (for regeneration)
+recursive-include tools *.py
+include tools/README.md
+
+# Exclude unnecessary files
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude *.swp
+global-exclude *.swo
+global-exclude .git*
+global-exclude .coverage
+global-exclude .pytest_cache
+global-exclude htmlcov
+

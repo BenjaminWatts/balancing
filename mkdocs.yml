@@ -1,0 +1,132 @@
+site_name: Elexon BMRS Python Client
+site_description: Python client library for accessing the Elexon BMRS API - UK electricity market data
+site_author: Benjamin Watts
+site_url: https://benjaminwatts.github.io/balancing/
+repo_url: https://github.com/benjaminwatts/balancing
+repo_name: benjaminwatts/balancing
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            docstring_section_style: spacy
+            show_root_heading: true
+            show_root_full_path: false
+            show_signature_annotations: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            signature_crossrefs: true
+            separate_signature: true
+            members_order: source
+            group_by_category: true
+            show_category_heading: true
+            show_if_no_docstring: false
+            inherited_members: false
+            filters:
+              - "!^_"
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: python
+          class: python
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+  - def_list
+  - tables
+  - footnotes
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quickstart.md
+      - Authentication: getting-started/authentication.md
+  - User Guide:
+      - Basic Usage: guide/basic-usage.md
+      - Type-Safe Usage: guide/typed-usage.md
+      - Fully Typed Usage: guide/fully-typed-usage.md
+      - Error Handling: guide/error-handling.md
+      - Rate Limiting: guide/rate-limiting.md
+  - API Reference:
+      - Client: api/client.md
+      - Typed Client: api/typed-client.md
+      - All Endpoints (287): api/all-endpoints.md
+      - Method Reference: api/method-reference.md
+      - Models: api/models.md
+      - Exceptions: api/exceptions.md
+      - Generated Models: api/generated-models.md
+  - Examples:
+      - Basic Examples: examples/basic.md
+      - Advanced Examples: examples/advanced.md
+  - Development:
+      - Contributing: development/contributing.md
+      - Code Generation: development/code-generation.md
+      - Publishing: development/publishing.md
+  - Changelog: changelog.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/benjaminwatts
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/elexon-bmrs/
+  version:
+    provider: mike
+
+extra_css:
+  - stylesheets/extra.css
+
