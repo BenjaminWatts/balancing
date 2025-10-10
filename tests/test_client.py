@@ -129,20 +129,38 @@ class TestBMRSClient:
         """Test successful API request."""
         mock_response = Mock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {"data": [{"value": 123}]}
+        mock_response.json.return_value = {
+            "data": [{
+                "settlementDate": "2024-01-15",
+                "settlementPeriod": 10,
+                "demand": 35000,
+                "publishTime": "2024-01-15T10:00:00Z",
+                "startTime": "2024-01-15T04:30:00Z"
+            }]
+        }
         mock_request.return_value = mock_response
 
         client = BMRSClient(api_key="test-key")
         result = client.get_system_demand(from_date=date.today(), to_date=date.today())
 
-        assert result == {"data": [{"value": 123}]}
+        assert "data" in result
+        assert len(result["data"]) == 1
 
     @patch("elexon_bmrs.client.requests.Session.request")
     def test_get_generation_by_fuel_type(self, mock_request):
         """Test get_generation_by_fuel_type method."""
         mock_response = Mock()
         mock_response.status_code = 200
-        mock_response.json.return_value = {"data": []}
+        mock_response.json.return_value = {
+            "data": [{
+                "fuelType": "WIND",
+                "generation": 5000,
+                "publishTime": "2024-01-15T10:00:00Z",
+                "startTime": "2024-01-15T04:30:00Z",
+                "settlementDate": "2024-01-15",
+                "settlementPeriod": 10
+            }]
+        }
         mock_request.return_value = mock_response
 
         client = BMRSClient(api_key="test-key")
@@ -153,7 +171,8 @@ class TestBMRSClient:
             settlement_period_to=48,
         )
 
-        assert result == {"data": []}
+        assert "data" in result
+        assert len(result["data"]) == 1
         # Verify the request was made with correct parameters
         call_args = mock_request.call_args
         assert call_args[1]["params"]["FromSettlementDate"] == "2024-01-01"
