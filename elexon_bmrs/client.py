@@ -143,7 +143,7 @@ class BMRSClient(GeneratedBMRSMethods):
         # Set default headers
         self.session.headers.update(
             {
-                "User-Agent": "elexon-bmrs-python/0.1.1",
+                "User-Agent": "elexon-bmrs-python/0.2.0",
                 "Accept": "application/json",
             }
         )
