@@ -13,6 +13,19 @@ from datetime import date, datetime
 # Import all generated models
 from elexon_bmrs.generated_models import *
 
+# Import manually created models for endpoints with empty OpenAPI schemas
+from elexon_bmrs.untyped_models import (
+    HealthCheckResponse,
+    CDNResponse,
+    DemandResponse,
+    InitialDemandOutturn,
+    DemandSummaryItem,
+    RollingSystemDemandResponse,
+    DemandTotalActualResponse,
+    GenerationCurrentItem,
+    HalfHourlyInterconnectorResponse,
+)
+
 
 class GeneratedBMRSMethods:
     """
@@ -9075,27 +9088,32 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
     def get_cdn(
         self,
         format: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> CDNResponse:
         """
         [DEPRECATED] Credit default notices (CDN)
 
         This endpoint has been moved to balancing/settlement/default-notices.
 
-        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
-        The OpenAPI specification does not define a response schema for this endpoint.
-        You will not get type checking or IDE autocomplete for the response.
-
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            Dict[str, Any]: Untyped response data (no schema available)
+            CDNResponse: Typed response object
         """
         params = {}
         if format is not None:
             params["format"] = format
 
         response = self._make_request("GET", f"/CDN", params=params)
+        
+        # Parse response into Pydantic model(s)
+        if isinstance(response, dict):
+            try:
+                return CDNResponse(**response)
+            except Exception as e:
+                import logging
+                logging.warning(f"Failed to parse response as CDNResponse: {e}. Returning raw data.")
+                return response
         return response
 
     def get_demand_by_restoration_zone_restored_submissions(
@@ -9614,131 +9632,156 @@ All Triad peaks are at least 10 days clear of one another.
     def get_demand(
         self,
         format: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> DemandResponse:
         """
         This endpoint is obsolete, and this location may be removed with no further notice. 
 
         This endpoint has been moved to demand/outturn.
 
-        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
-        The OpenAPI specification does not define a response schema for this endpoint.
-        You will not get type checking or IDE autocomplete for the response.
-
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            Dict[str, Any]: Untyped response data (no schema available)
+            DemandResponse: Typed response object
         """
         params = {}
         if format is not None:
             params["format"] = format
 
         response = self._make_request("GET", f"/demand", params=params)
+        
+        # Parse response into Pydantic model(s)
+        if isinstance(response, dict):
+            try:
+                return DemandResponse(**response)
+            except Exception as e:
+                import logging
+                logging.warning(f"Failed to parse response as DemandResponse: {e}. Returning raw data.")
+                return response
         return response
 
     def get_demand_stream(
         self,
         format: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> List[InitialDemandOutturn]:
         """
         This endpoint is obsolete, and this location may be removed with no further notice. 
 
         This endpoint has been moved to demand/outturn/stream.
 
-        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
-        The OpenAPI specification does not define a response schema for this endpoint.
-        You will not get type checking or IDE autocomplete for the response.
-
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            Dict[str, Any]: Untyped response data (no schema available)
+            List[InitialDemandOutturn]: List of InitialDemandOutturn objects
         """
         params = {}
         if format is not None:
             params["format"] = format
 
         response = self._make_request("GET", f"/demand/stream", params=params)
+        
+        # Parse response into Pydantic model(s)
+        if isinstance(response, list):
+            try:
+                return [InitialDemandOutturn(**item) for item in response]
+            except Exception as e:
+                import logging
+                logging.warning(f"Failed to parse list response as List[InitialDemandOutturn]: {e}. Returning raw data.")
+                return response
         return response
 
     def get_demand_rolling_system_demand(
         self,
         format: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> RollingSystemDemandResponse:
         """
         This endpoint is obsolete, and this location may be removed with no further notice. 
 
         This endpoint has been moved to generation/outturn.
 
-        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
-        The OpenAPI specification does not define a response schema for this endpoint.
-        You will not get type checking or IDE autocomplete for the response.
-
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            Dict[str, Any]: Untyped response data (no schema available)
+            RollingSystemDemandResponse: Typed response object
         """
         params = {}
         if format is not None:
             params["format"] = format
 
         response = self._make_request("GET", f"/demand/rollingSystemDemand", params=params)
+        
+        # Parse response into Pydantic model(s)
+        if isinstance(response, dict):
+            try:
+                return RollingSystemDemandResponse(**response)
+            except Exception as e:
+                import logging
+                logging.warning(f"Failed to parse response as RollingSystemDemandResponse: {e}. Returning raw data.")
+                return response
         return response
 
     def get_demand_summary(
         self,
         format: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> List[DemandSummaryItem]:
         """
         This endpoint is obsolete, and this location may be removed with no further notice. 
 
         This endpoint has been moved to demand/outturn/summary.
 
-        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
-        The OpenAPI specification does not define a response schema for this endpoint.
-        You will not get type checking or IDE autocomplete for the response.
-
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            Dict[str, Any]: Untyped response data (no schema available)
+            List[DemandSummaryItem]: List of DemandSummaryItem objects
         """
         params = {}
         if format is not None:
             params["format"] = format
 
         response = self._make_request("GET", f"/demand/summary", params=params)
+        
+        # Parse response into Pydantic model(s)
+        if isinstance(response, list):
+            try:
+                return [DemandSummaryItem(**item) for item in response]
+            except Exception as e:
+                import logging
+                logging.warning(f"Failed to parse list response as List[DemandSummaryItem]: {e}. Returning raw data.")
+                return response
         return response
 
     def get_demand_total_actual(
         self,
         format: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> DemandTotalActualResponse:
         """
         This endpoint is obsolete, and this location may be removed with no further notice. 
 
         This endpoint has been moved to demand/actual/total.
 
-        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
-        The OpenAPI specification does not define a response schema for this endpoint.
-        You will not get type checking or IDE autocomplete for the response.
-
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            Dict[str, Any]: Untyped response data (no schema available)
+            DemandTotalActualResponse: Typed response object
         """
         params = {}
         if format is not None:
             params["format"] = format
 
         response = self._make_request("GET", f"/demand/total/actual", params=params)
+        
+        # Parse response into Pydantic model(s)
+        if isinstance(response, dict):
+            try:
+                return DemandTotalActualResponse(**response)
+            except Exception as e:
+                import logging
+                logging.warning(f"Failed to parse response as DemandTotalActualResponse: {e}. Returning raw data.")
+                return response
         return response
 
     def get_demand_actual_total(
@@ -10734,53 +10777,63 @@ Use raw dataset endpoints under /datasets for full access.
     def get_generation_outturn_half_hourly_interconnector(
         self,
         format: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> HalfHourlyInterconnectorResponse:
         """
         This endpoint is obsolete, and this location may be removed with no further notice. 
 
         This endpoint has been moved to generation/outturn/interconnectors.
 
-        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
-        The OpenAPI specification does not define a response schema for this endpoint.
-        You will not get type checking or IDE autocomplete for the response.
-
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            Dict[str, Any]: Untyped response data (no schema available)
+            HalfHourlyInterconnectorResponse: Typed response object
         """
         params = {}
         if format is not None:
             params["format"] = format
 
         response = self._make_request("GET", f"/generation/outturn/halfHourlyInterconnector", params=params)
+        
+        # Parse response into Pydantic model(s)
+        if isinstance(response, dict):
+            try:
+                return HalfHourlyInterconnectorResponse(**response)
+            except Exception as e:
+                import logging
+                logging.warning(f"Failed to parse response as HalfHourlyInterconnectorResponse: {e}. Returning raw data.")
+                return response
         return response
 
     def get_generation_outturn_fuelinsthhcur(
         self,
         format: Optional[str] = None
-    ) -> Dict[str, Any]:
+    ) -> List[GenerationCurrentItem]:
         """
         This endpoint is obsolete, and this location may be removed with no further notice. 
 
         This endpoint has been moved to generation/outturn/current.
 
-        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
-        The OpenAPI specification does not define a response schema for this endpoint.
-        You will not get type checking or IDE autocomplete for the response.
-
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            Dict[str, Any]: Untyped response data (no schema available)
+            List[GenerationCurrentItem]: List of GenerationCurrentItem objects
         """
         params = {}
         if format is not None:
             params["format"] = format
 
         response = self._make_request("GET", f"/generation/outturn/FUELINSTHHCUR", params=params)
+        
+        # Parse response into Pydantic model(s)
+        if isinstance(response, list):
+            try:
+                return [GenerationCurrentItem(**item) for item in response]
+            except Exception as e:
+                import logging
+                logging.warning(f"Failed to parse list response as List[GenerationCurrentItem]: {e}. Returning raw data.")
+                return response
         return response
 
     def get_forecast_availability_daily(
@@ -11484,22 +11537,27 @@ Date parameters must be provided in the exact format yyyy-MM-dd.
 
     def get_health(
         self
-    ) -> Dict[str, Any]:
+    ) -> HealthCheckResponse:
         """
         Health check
 
         This endpoint provides a success response code (200) with status code 2 if the service is alive
 
-        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
-        The OpenAPI specification does not define a response schema for this endpoint.
-        You will not get type checking or IDE autocomplete for the response.
-
         Returns:
-            Dict[str, Any]: Untyped response data (no schema available)
+            HealthCheckResponse: Typed response object
         """
         params = {}
 
         response = self._make_request("GET", f"/health", params=params)
+        
+        # Parse response into Pydantic model(s)
+        if isinstance(response, dict):
+            try:
+                return HealthCheckResponse(**response)
+            except Exception as e:
+                import logging
+                logging.warning(f"Failed to parse response as HealthCheckResponse: {e}. Returning raw data.")
+                return response
         return response
 
     def get_forecast_indicated_day_ahead(

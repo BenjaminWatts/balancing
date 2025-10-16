@@ -9,7 +9,7 @@ All notable changes to the elexon-bmrs project will be documented in this file.
 This release transforms the SDK into a fully typed Python client with 95% type coverage.
 
 ### Added
-- **275 fully typed endpoints** (95% coverage) with Pydantic models
+- **284 fully typed endpoints** (98.9% coverage) with Pydantic models
 - **280 Pydantic models** auto-generated from OpenAPI spec
 - **39 field mixins** to eliminate code duplication (~364+ lines saved)
 - **Comprehensive test suite** (`tests/test_typed_endpoints.py`)
@@ -36,11 +36,13 @@ This release transforms the SDK into a fully typed Python client with 95% type c
 - `tools/generate_typed_client.py` (no longer needed)
 
 ### Technical Details
-- **Type Coverage**: 275/287 endpoints (95%)
+- **Type Coverage**: 284/287 endpoints (98.9%)
   - Single models: 181
-  - List[Model]: 90
+  - List[Model]: 91
   - List[str]: 4
-  - Untyped (Dict): 12 (API spec limitation)
+  - Manual models: 8
+  - Untyped (XML): 2
+  - Untyped (404): 1
 - **Code Generation**: Fully automated from OpenAPI spec
 - **Backward Compatible**: Zero breaking changes
 

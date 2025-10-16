@@ -35,6 +35,22 @@ class ClientCodeGenerator:
         self.components = spec.get("components", {})
         self.schemas = self.components.get("schemas", {})
         self.endpoint_to_model: Dict[str, str] = {}  # Map method names to response models
+        
+        # Manual mapping for endpoints with empty OpenAPI schemas
+        # These models are in untyped_models.py and created from actual API responses
+        self.manual_model_overrides = {
+            '/health': 'HealthCheckResponse',
+            '/CDN': 'CDNResponse',
+            '/demand': 'DemandResponse',
+            '/demand/stream': 'List[InitialDemandOutturn]',  # Same as /demand but returns list directly
+            '/demand/summary': 'List[DemandSummaryItem]',
+            '/demand/rollingSystemDemand': 'RollingSystemDemandResponse',
+            '/demand/total/actual': 'DemandTotalActualResponse',
+            '/generation/outturn/FUELINSTHHCUR': 'List[GenerationCurrentItem]',
+            '/generation/outturn/halfHourlyInterconnector': 'HalfHourlyInterconnectorResponse',
+            # Note: /interop/MessageListRetrieval and /interop/MessageDetailRetrieval return XML (not JSON)
+            # Note: /lolpdrm/forecast/evolution returns 404 (deprecated endpoint)
+        }
 
     def generate_method_name(self, path: str, method: str, operation_id: str = None) -> str:
         """
@@ -175,12 +191,16 @@ class ClientCodeGenerator:
         
         return result or "UnnamedModel"
     
-    def _get_response_model(self, operation: dict) -> str:
+    def _get_response_model(self, operation: dict, path: str = None) -> str:
         """
         Extract the response model name from an operation.
         
         Returns the Pydantic model class name or 'Dict[str, Any]' if no specific model.
         """
+        # Check if we have a manual override for this path
+        if path and path in self.manual_model_overrides:
+            return self.manual_model_overrides[path]
+        
         try:
             responses = operation.get('responses', {})
             success_response = responses.get('200', {})
@@ -253,7 +273,7 @@ class ClientCodeGenerator:
         description = operation.get("description", "")
         
         # Get the response model for this endpoint
-        response_model = self._get_response_model(operation)
+        response_model = self._get_response_model(operation, path=path)
         self.endpoint_to_model[method_name] = response_model
 
         # Build method signature
@@ -439,6 +459,19 @@ from datetime import date, datetime
 
 # Import all generated models
 from elexon_bmrs.generated_models import *
+
+# Import manually created models for endpoints with empty OpenAPI schemas
+from elexon_bmrs.untyped_models import (
+    HealthCheckResponse,
+    CDNResponse,
+    DemandResponse,
+    InitialDemandOutturn,
+    DemandSummaryItem,
+    RollingSystemDemandResponse,
+    DemandTotalActualResponse,
+    GenerationCurrentItem,
+    HalfHourlyInterconnectorResponse,
+)
 
 
 class GeneratedBMRSMethods:

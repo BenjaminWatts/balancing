@@ -42,6 +42,18 @@ from elexon_bmrs.models import (
     PNResponse,
     B1610Response,
 )
+# Import manually created models for previously untyped endpoints
+from elexon_bmrs.untyped_models import (
+    HealthCheckResponse,
+    CDNResponse,
+    DemandResponse,
+    InitialDemandOutturn,
+    DemandSummaryItem,
+    RollingSystemDemandResponse,
+    DemandTotalActualResponse,
+    GenerationCurrentItem,
+    HalfHourlyInterconnectorResponse,
+)
 # Import commonly used enums
 from elexon_bmrs.enums import (
     DatasetEnum,
@@ -102,6 +114,16 @@ __all__ = [
     "BODResponse",
     "PNResponse",
     "B1610Response",
+    # Manual models for previously untyped endpoints
+    "HealthCheckResponse",
+    "CDNResponse",
+    "DemandResponse",
+    "InitialDemandOutturn",
+    "DemandSummaryItem",
+    "RollingSystemDemandResponse",
+    "DemandTotalActualResponse",
+    "GenerationCurrentItem",
+    "HalfHourlyInterconnectorResponse",
     # Commonly used enums
     "DatasetEnum",
     "PsrtypeEnum",

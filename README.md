@@ -7,7 +7,7 @@ A Python client library for accessing the Elexon BMRS (Balancing Mechanism Repor
 
 ## Features
 
-- 🎯 **95% Type Coverage** - 275/287 endpoints return fully typed Pydantic models
+- 🎯 **99% Type Coverage** - 284/287 endpoints return fully typed Pydantic models
 - 🔌 **287 API endpoints** - Complete coverage of all BMRS data
 - 🔑 **API key optional** (but recommended for higher rate limits)
 - 📊 **280 Pydantic models** - Auto-generated with comprehensive validation
@@ -17,7 +17,7 @@ A Python client library for accessing the Elexon BMRS (Balancing Mechanism Repor
 - 📝 **Complete type hints** - Works with mypy, pyright, and IDE type checking
 - 🤖 Auto-generated from OpenAPI specification - Always up-to-date
 - 🧪 Comprehensive test coverage
-- ⚠️ **Clear warnings** for 12 untyped endpoints (OpenAPI spec limitation)
+- ⚠️ **Clear warnings** for 3 untyped endpoints (2 XML, 1 deprecated)
 - 📚 **Complete documentation** with examples for all endpoints
 
 ## Installation
@@ -428,36 +428,39 @@ For more details on responsible API usage, see the [Elexon API Terms](https://ww
 
 ## Type Coverage
 
-### 95% Fully Typed (275/287 endpoints)
+### 99% Fully Typed (284/287 endpoints) 🎉
 
 The SDK provides **comprehensive type safety** with Pydantic models:
 
 | Type Category | Count | Percentage | Status |
 |---------------|-------|------------|--------|
-| **Fully Typed (Pydantic)** | 275 | 95% | ✅ |
-| Untyped (Empty Schema) | 11 | 4% | ⚠️ API limitation |
-| Untyped (Stream) | 1 | <1% | ⚠️ Expected |
+| **Fully Typed (Pydantic)** | 284 | 98.9% | ✅ |
+| Untyped (XML Endpoints) | 2 | 0.7% | ⚠️ Returns XML |
+| Untyped (Deprecated/404) | 1 | 0.3% | ⚠️ Doesn't exist |
 
 **Typed Response Types:**
 - **Single Model**: 181 endpoints → Return `Model_Response`
-- **List of Models**: 90 endpoints → Return `List[Model]`
+- **List of Models**: 91 endpoints → Return `List[Model]`
 - **List of Strings**: 4 endpoints → Return `List[str]`
+- **Manual Models**: 8 endpoints → Created from actual API responses
 
-### Untyped Endpoints
+### Untyped Endpoints (Only 3!)
 
-12 endpoints return `Dict[str, Any]` because they have no schema in the OpenAPI specification:
+Only 3 endpoints return `Dict[str, Any]` - and these CANNOT be typed:
 
 ```python
-# ⚠️ Untyped endpoints show clear warnings
-result = client.get_health()
+# ⚠️ The 3 untyped endpoints show clear warnings
+result = client.get_interop_message_list_retrieval(...)
 # IDE shows: "WARNING: This endpoint returns untyped Dict[str, Any]"
+# Reason: Returns XML, not JSON
 ```
 
-**See [UNTYPED_ENDPOINTS.md](UNTYPED_ENDPOINTS.md)** for:
-- Complete list of untyped endpoints
-- Explanation for each one
-- Best practices for handling them
-- Typed alternatives where available
+**The 3 Untyped Endpoints:**
+1. `get_interop_message_list_retrieval()` - Returns XML (not JSON)
+2. `get_interop_message_detail_retrieval()` - Returns XML (not JSON)
+3. `get_lolpdrm_forecast_evolution()` - Returns 404 (deprecated endpoint)
+
+**See [UNTYPED_ENDPOINTS.md](UNTYPED_ENDPOINTS.md)** for complete details.
 
 ### Type Safety Benefits
 
