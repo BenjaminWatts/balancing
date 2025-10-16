@@ -8,15 +8,17 @@ A Python client library for accessing the Elexon BMRS (Balancing Mechanism Repor
 
 ## Features
 
+- 🎯 **99% Type Coverage** - 284/287 endpoints return fully typed Pydantic models
 - 🔌 **287 API Endpoints** - Complete coverage of all BMRS data
 - 🔑 **API key optional** (but recommended for higher rate limits)
-- 📊 **Comprehensive data access** - Generation, demand, pricing, balancing, settlement, and more
-- 🔄 **Multiple data streams** - All BMRS endpoints with streaming support
-- ⚡ **Type-safe responses** - Specific response type for each endpoint
-- 🛡️ **Built-in error handling** - Detailed exceptions for all error cases
-- 📝 **Full type hints** - Complete IDE autocomplete support
-- 🤖 **Auto-generated** - 287 endpoints + 280 Pydantic models from OpenAPI spec
-- 🧪 **Comprehensive tests** - High test coverage for reliability
+- 📊 **280+ Pydantic Models** - Auto-generated with comprehensive validation
+- 🧩 **39 Field Mixins** - Massive code deduplication (~364+ lines saved)
+- ⚡ **Full IDE Autocomplete** - Type-safe access to all response fields
+- 🛡️ **Built-in error handling** - Pydantic validation with clear error messages
+- 📝 **Complete Type Hints** - Works with mypy, pyright, and IDE type checking
+- 🤖 **Auto-generated** - Always up-to-date with OpenAPI specification
+- 🧪 **Comprehensive tests** - All endpoint categories tested
+- ⚠️ **Clear Warnings** - 3 untyped endpoints clearly flagged (2 XML, 1 deprecated)
 - 📚 **Complete documentation** - Examples and detailed docs for all endpoints
 
 ## Quick Start
@@ -58,25 +60,44 @@ The client provides **287 methods** organized into these categories:
 
 See the [Complete Endpoint Reference](api/all-endpoints.md) for the full list.
 
-## Type-Safe Usage
+## Type-Safe Usage (v0.3.0+)
+
+**99% of endpoints now return typed Pydantic models automatically!**
 
 ```python
-from elexon_bmrs import BMRSClient, SystemDemandResponse
-from elexon_bmrs.generated_models import DemandOutturnNational
+from elexon_bmrs import BMRSClient
+from elexon_bmrs.generated_models import (
+    DynamicData_ResponseWithMetadata,
+    AbucDatasetRow_DatasetResponse
+)
 
 client = BMRSClient(api_key="your-api-key")
 
-# Each method returns its own specific response type
-response: SystemDemandResponse = client.get_system_demand(
-    from_date="2024-01-01",
-    to_date="2024-01-02"
+# ✨ Fully typed responses - automatic Pydantic parsing!
+result: DynamicData_ResponseWithMetadata = client.get_balancing_dynamic(
+    bmUnit="2__CARR-1",
+    snapshotAt="2024-01-01T12:00:00Z"
 )
 
-# Full type safety and IDE autocomplete
-for item in response.data:
-    demand = DemandOutturnNational(**item)
-    print(f"Date: {demand.settlement_date}, Demand: {demand.demand} MW")
+# Full IDE autocomplete on all fields! 🎉
+for item in result.data:
+    print(f"Dataset: {item.dataset}")
+    print(f"Value: {item.value}")
+    print(f"Time: {item.time}")
+    # ↑ IDE shows all available fields - autocomplete everywhere!
+
+# List responses are also fully typed
+demand = client.get_demand_outturn_summary(
+    from_="2024-01-01",
+    to_="2024-01-02"
+)
+# Returns: List[RollingSystemDemand] - each item typed!
+
+for d in demand:
+    print(f"Demand: {d.demand} MW at {d.start_time}")
 ```
+
+**Type Coverage:** 284/287 endpoints (99%) are fully typed with Pydantic models!
 
 ## Installation
 
