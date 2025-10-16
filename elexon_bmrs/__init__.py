@@ -6,7 +6,7 @@ This library provides easy access to UK electricity market data with full type s
 """
 
 from elexon_bmrs.client import BMRSClient
-from elexon_bmrs.typed_client import TypedBMRSClient, create_typed_client
+# TypedBMRSClient removed - all typing is now in BMRSClient
 from elexon_bmrs.exceptions import (
     BMRSException,
     APIError,
@@ -68,11 +68,9 @@ from elexon_bmrs.enums import (
     DeliverymodeEnum,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.3.0"
 __all__ = [
     "BMRSClient",
-    "TypedBMRSClient",  # Fully typed client with proper response types
-    "create_typed_client",  # Convenience function
     "BMRSException",
     "APIError",
     "AuthenticationError",

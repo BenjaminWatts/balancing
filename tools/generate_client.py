@@ -203,6 +203,9 @@ class ClientCodeGenerator:
                     model_name = self._sanitize_class_name(ref_name)
                     # Return as List[Model]
                     return f"List[{model_name}]"
+                elif items.get('type') == 'string':
+                    # Array of strings (e.g., /reference/fueltypes/all)
+                    return "List[str]"
             
             # Check if it's an inline schema with properties and data array
             # This handles endpoints with wrapper objects
@@ -343,14 +346,21 @@ class ClientCodeGenerator:
             if response_model.startswith("List["):
                 # Extract the model name from List[ModelName]
                 inner_model = response_model[5:-1]  # Remove "List[" and "]"
-                body_lines.append(f"        if isinstance(response, list):")
-                body_lines.append(f"            try:")
-                body_lines.append(f"                return [{inner_model}(**item) for item in response]")
-                body_lines.append(f"            except Exception as e:")
-                body_lines.append(f"                import logging")
-                body_lines.append(f'                logging.warning(f"Failed to parse list response as {response_model}: {{e}}. Returning raw data.")')
-                body_lines.append(f"                return response")
-                body_lines.append(f"        return response")
+                
+                # Special case: List[str] doesn't need parsing
+                if inner_model == "str":
+                    body_lines.append(f"        # Returns list of strings directly")
+                    body_lines.append(f"        return response")
+                else:
+                    # Parse list of models
+                    body_lines.append(f"        if isinstance(response, list):")
+                    body_lines.append(f"            try:")
+                    body_lines.append(f"                return [{inner_model}(**item) for item in response]")
+                    body_lines.append(f"            except Exception as e:")
+                    body_lines.append(f"                import logging")
+                    body_lines.append(f'                logging.warning(f"Failed to parse list response as {response_model}: {{e}}. Returning raw data.")')
+                    body_lines.append(f"                return response")
+                    body_lines.append(f"        return response")
             else:
                 # Single model or wrapped response
                 body_lines.append(f"        if isinstance(response, dict):")

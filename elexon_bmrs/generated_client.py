@@ -12574,7 +12574,7 @@ Filtering from settlement date and period to settlement date and period:
 
     def get_reference_fueltypes_all(
         self
-    ) -> Dict[str, Any]:
+    ) -> List[str]:
         """
         Fuel types
 
@@ -12586,11 +12586,14 @@ Filtering from settlement date and period to settlement date and period:
         params = {}
 
         response = self._make_request("GET", f"/reference/fueltypes/all", params=params)
+        
+        # Parse response into Pydantic model(s)
+        # Returns list of strings directly
         return response
 
     def get_reference_remit_participants_all(
         self
-    ) -> Dict[str, Any]:
+    ) -> List[str]:
         """
         Participants
 
@@ -12602,11 +12605,14 @@ Filtering from settlement date and period to settlement date and period:
         params = {}
 
         response = self._make_request("GET", f"/reference/remit/participants/all", params=params)
+        
+        # Parse response into Pydantic model(s)
+        # Returns list of strings directly
         return response
 
     def get_reference_remit_assets_all(
         self
-    ) -> Dict[str, Any]:
+    ) -> List[str]:
         """
         Assets
 
@@ -12618,11 +12624,14 @@ Filtering from settlement date and period to settlement date and period:
         params = {}
 
         response = self._make_request("GET", f"/reference/remit/assets/all", params=params)
+        
+        # Parse response into Pydantic model(s)
+        # Returns list of strings directly
         return response
 
     def get_reference_remit_fueltypes_all(
         self
-    ) -> Dict[str, Any]:
+    ) -> List[str]:
         """
         REMIT fuel types
 
@@ -12634,6 +12643,9 @@ Filtering from settlement date and period to settlement date and period:
         params = {}
 
         response = self._make_request("GET", f"/reference/remit/fueltypes/all", params=params)
+        
+        # Parse response into Pydantic model(s)
+        # Returns list of strings directly
         return response
 
     def get_reference_bmunits_all(
