@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "elexon-bmrs"
-version = "0.2.0"
+version = "0.3.0"
 description = "Python client library for the Elexon BMRS (Balancing Mechanism Reporting Service) API"
 readme = {file = "README.md", content-type = "text/markdown"}
 requires-python = ">=3.8"

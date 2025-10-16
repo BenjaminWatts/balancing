@@ -34,6 +34,7 @@ class ClientCodeGenerator:
         self.paths = spec.get("paths", {})
         self.components = spec.get("components", {})
         self.schemas = self.components.get("schemas", {})
+        self.endpoint_to_model: Dict[str, str] = {}  # Map method names to response models
 
     def generate_method_name(self, path: str, method: str, operation_id: str = None) -> str:
         """
@@ -146,6 +147,86 @@ class ClientCodeGenerator:
         }
 
         return type_map.get(param_type, "str")
+    
+    def _sanitize_class_name(self, name: str) -> str:
+        """Convert schema name to valid Python class name (matches generate_models.py logic)."""
+        # Handle wrapper type suffixes
+        suffix = ""
+        if "DatasetResponse-1_" in name:
+            suffix = "_DatasetResponse"
+        elif "ResponseWithMetadata-1_" in name:
+            suffix = "_ResponseWithMetadata"
+        elif "Response-1_" in name and "-1_" in name:
+            suffix = "_Response"
+        
+        # Remove namespace prefixes
+        name = name.split(".")[-1]
+        
+        # Replace invalid characters
+        name = re.sub(r"[^a-zA-Z0-9_]", "_", name)
+        name = re.sub(r"_+", "_", name)
+        
+        # Ensure it starts with a letter
+        if name and name[0].isdigit():
+            name = f"Model_{name}"
+        
+        name = name.strip("_")
+        result = (name + suffix) if suffix else name
+        
+        return result or "UnnamedModel"
+    
+    def _get_response_model(self, operation: dict) -> str:
+        """
+        Extract the response model name from an operation.
+        
+        Returns the Pydantic model class name or 'Dict[str, Any]' if no specific model.
+        """
+        try:
+            responses = operation.get('responses', {})
+            success_response = responses.get('200', {})
+            content = success_response.get('content', {})
+            json_content = content.get('application/json', {})
+            response_schema = json_content.get('schema', {})
+            
+            # Check if there's a $ref at the top level
+            if '$ref' in response_schema:
+                ref_path = response_schema['$ref']
+                ref_name = ref_path.split("/")[-1]
+                model_name = self._sanitize_class_name(ref_name)
+                return model_name
+            
+            # Check if it's a direct array (e.g., /demand/outturn/summary returns array directly)
+            if response_schema.get('type') == 'array':
+                items = response_schema.get('items', {})
+                if '$ref' in items:
+                    ref_name = items['$ref'].split("/")[-1]
+                    model_name = self._sanitize_class_name(ref_name)
+                    # Return as List[Model]
+                    return f"List[{model_name}]"
+            
+            # Check if it's an inline schema with properties and data array
+            # This handles endpoints with wrapper objects
+            if response_schema.get('type') == 'object':
+                properties = response_schema.get('properties', {})
+                
+                # Common pattern: { data: [...], metadata: {...} }
+                if 'data' in properties:
+                    data_schema = properties['data']
+                    
+                    # If data is an array with items that have a $ref
+                    if data_schema.get('type') == 'array':
+                        items = data_schema.get('items', {})
+                        if '$ref' in items:
+                            ref_name = items['$ref'].split("/")[-1]
+                            model_name = self._sanitize_class_name(ref_name)
+                            # Return the wrapper model name (e.g., ModelName_DatasetResponse)
+                            return f"{model_name}_DatasetResponse"
+            
+            # If no ref, return Dict (includes stream endpoints)
+            return "Dict[str, Any]"
+            
+        except Exception:
+            return "Dict[str, Any]"
 
     def generate_method(
         self, path: str, method: str, operation: dict
@@ -167,6 +248,10 @@ class ClientCodeGenerator:
         params = self.extract_parameters(operation)
         summary = operation.get("summary", "")
         description = operation.get("description", "")
+        
+        # Get the response model for this endpoint
+        response_model = self._get_response_model(operation)
+        self.endpoint_to_model[method_name] = response_model
 
         # Build method signature
         signature_params = ["self"]
@@ -191,7 +276,7 @@ class ClientCodeGenerator:
                 safe_name = self._escape_param_name(param['name'])
                 signature_params.append(f"{safe_name}: Optional[{type_hint}] = None")
 
-        signature = f"def {method_name}(\n        " + ",\n        ".join(signature_params) + "\n    ) -> Dict[str, Any]:"
+        signature = f"def {method_name}(\n        " + ",\n        ".join(signature_params) + f"\n    ) -> {response_model}:"
 
         # Build docstring
         docstring_lines = [f'        """']
@@ -246,8 +331,38 @@ class ClientCodeGenerator:
 
         body_lines.append("")
         body_lines.append(
-            f'        return self._make_request("{method.upper()}", f"{api_path}", params=params)'
+            f'        response = self._make_request("{method.upper()}", f"{api_path}", params=params)'
         )
+        
+        # Add response parsing if we have a specific model
+        if response_model != "Dict[str, Any]":
+            body_lines.append(f"        ")
+            body_lines.append(f"        # Parse response into Pydantic model(s)")
+            
+            # Check if it's a List[Model] return type
+            if response_model.startswith("List["):
+                # Extract the model name from List[ModelName]
+                inner_model = response_model[5:-1]  # Remove "List[" and "]"
+                body_lines.append(f"        if isinstance(response, list):")
+                body_lines.append(f"            try:")
+                body_lines.append(f"                return [{inner_model}(**item) for item in response]")
+                body_lines.append(f"            except Exception as e:")
+                body_lines.append(f"                import logging")
+                body_lines.append(f'                logging.warning(f"Failed to parse list response as {response_model}: {{e}}. Returning raw data.")')
+                body_lines.append(f"                return response")
+                body_lines.append(f"        return response")
+            else:
+                # Single model or wrapped response
+                body_lines.append(f"        if isinstance(response, dict):")
+                body_lines.append(f"            try:")
+                body_lines.append(f"                return {response_model}(**response)")
+                body_lines.append(f"            except Exception as e:")
+                body_lines.append(f"                import logging")
+                body_lines.append(f'                logging.warning(f"Failed to parse response as {response_model}: {{e}}. Returning raw data.")')
+                body_lines.append(f"                return response")
+                body_lines.append(f"        return response")
+        else:
+            body_lines.append(f"        return response")
 
         body = "\n".join(body_lines)
 
@@ -286,18 +401,31 @@ class ClientCodeGenerator:
             Complete Python client code
         """
         header = '''"""
-Auto-generated BMRS API client methods.
+Auto-generated BMRS API client methods with typed Pydantic model returns.
 
 This file is automatically generated from the OpenAPI specification.
 Do not edit manually - changes will be overwritten.
+
+All methods return properly typed Pydantic models for type safety and IDE autocomplete.
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
 from datetime import date, datetime
+
+# Import all generated models
+from elexon_bmrs.generated_models import *
 
 
 class GeneratedBMRSMethods:
-    """Auto-generated methods for the BMRS API."""
+    """
+    Auto-generated methods for the BMRS API with typed returns.
+    
+    All methods return Pydantic models instead of Dict[str, Any] for:
+    - Type safety
+    - IDE autocomplete
+    - Validation
+    - Better developer experience
+    """
 
 '''
 

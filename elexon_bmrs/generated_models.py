@@ -15,21 +15,50 @@ from elexon_bmrs import field_mixins
 
 
 # Field mixin aliases (provide field definitions + methods)
+AcceptanceFields = field_mixins.AcceptanceFields
+ActiveFlagFields = field_mixins.ActiveFlagFields
+AmendmentFlagFields = field_mixins.AmendmentFlagFields
+AssetFields = field_mixins.AssetFields
+BidOfferFields = field_mixins.BidOfferFields
+BidOfferPriceFields = field_mixins.BidOfferPriceFields
+BidOfferVolumeFields = field_mixins.BidOfferVolumeFields
+BiddingZoneFields = field_mixins.BiddingZoneFields
 BmUnitFields = field_mixins.BmUnitFields
+BmUnitTypeFields = field_mixins.BmUnitTypeFields
 BoundaryFields = field_mixins.BoundaryFields
+BusinessTypeFields = field_mixins.BusinessTypeFields
+CapacityFields = field_mixins.CapacityFields
 CreatedDateTimeFields = field_mixins.CreatedDateTimeFields
 DatasetFields = field_mixins.DatasetFields
 DemandFields = field_mixins.DemandFields
 DocumentFields = field_mixins.DocumentFields
+FlowDirectionFields = field_mixins.FlowDirectionFields
 ForecastDateFields = field_mixins.ForecastDateFields
+FuelTypeFields = field_mixins.FuelTypeFields
 GenerationFields = field_mixins.GenerationFields
-LevelRangeFields = field_mixins.LevelRangeFields
-PriceFields = field_mixins.PriceFields
+IdFields = field_mixins.IdFields
+InterconnectorFields = field_mixins.InterconnectorFields
+LeadPartyFields = field_mixins.LeadPartyFields
+LevelFields = field_mixins.LevelFields
+MarginFields = field_mixins.MarginFields
+MessageTypeFields = field_mixins.MessageTypeFields
+NationalDemandFields = field_mixins.NationalDemandFields
+OutputUsableFields = field_mixins.OutputUsableFields
+PsrTypeFields = field_mixins.PsrTypeFields
 PublishTimeFields = field_mixins.PublishTimeFields
 QuantityFields = field_mixins.QuantityFields
+RevisionNumberFields = field_mixins.RevisionNumberFields
 SettlementFields = field_mixins.SettlementFields
+SettlementPeriodRangeFields = field_mixins.SettlementPeriodRangeFields
+SoFlagFields = field_mixins.SoFlagFields
+StartEndTimeFields = field_mixins.StartEndTimeFields
 StartTimeFields = field_mixins.StartTimeFields
+StorFlagFields = field_mixins.StorFlagFields
+SurplusFields = field_mixins.SurplusFields
+SystemZoneFields = field_mixins.SystemZoneFields
+TimeFields = field_mixins.TimeFields
 TimeRangeFields = field_mixins.TimeRangeFields
+TransmissionDemandFields = field_mixins.TransmissionDemandFields
 VolumeFields = field_mixins.VolumeFields
 WeekFields = field_mixins.WeekFields
 YearFields = field_mixins.YearFields
@@ -115,7 +144,7 @@ class LegacyRemitDetailBody(BaseModel):
     list: Optional[LegacyRemitDetailList] = None
 
 
-class LegacyRemitDetailItem(AffectedUnitMixin, AssetMixin, CapacityMixin, EventMixin, MessageMixin, BiddingZoneMixin, RevisionMixin, BaseModel):
+class LegacyRemitDetailItem(RevisionNumberFields, AssetFields, MessageTypeFields, BiddingZoneFields, ActiveFlagFields, AffectedUnitMixin, AssetMixin, CapacityMixin, EventMixin, MessageMixin, BiddingZoneMixin, RevisionMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     message_id: str = Field(alias="messageId")
@@ -124,7 +153,6 @@ class LegacyRemitDetailItem(AffectedUnitMixin, AssetMixin, CapacityMixin, EventM
     event_type: EventtypeEnum = Field(alias="eventType")
     publish_date_time_string: Optional[str] = Field(default=None, alias="publishDateTimeString")
     participant_market_participant_id: Optional[str] = Field(default=None, alias="participantMarketParticipantId")
-    asset_id: str = Field(alias="assetId")
     asset_eic_code: Optional[str] = Field(default=None, alias="assetEicCode")
     asset_type: AssettypeEnum = Field(alias="assetType")
     affected_unit: str = Field(alias="affectedUnit")
@@ -138,13 +166,9 @@ class LegacyRemitDetailItem(AffectedUnitMixin, AssetMixin, CapacityMixin, EventM
     cause: str
     event_status: EventstatusEnum = Field(alias="eventStatus")
     related_information: Optional[str] = Field(default=None, alias="relatedInformation")
-    active_flag: Optional[str] = Field(default=None, alias="activeFlag")
-    message_type: MessagetypeEnum = Field(alias="messageType")
     unavailability_type: UnavailabilitytypeEnum = Field(alias="unavailabilityType")
     acer_code: Optional[str] = Field(default=None, alias="acerCode")
-    bidding_zone: str = Field(alias="biddingZone")
     outage_profile: Optional[LegacyRemitOutageProfile] = Field(default=None, alias="outageProfile")
-    revision_number: int = Field(alias="revisionNumber")
 
 
 class LegacyRemitDetailList(BaseModel):
@@ -169,7 +193,7 @@ class LegacyRemitDetailResponse(BaseModel):
     body: Optional[LegacyRemitDetailBody] = None
 
 
-class LegacyRemitListItem(AffectedUnitMixin, AssetMixin, CapacityMixin, EventMixin, MessageMixin, RevisionMixin, BaseModel):
+class LegacyRemitListItem(RevisionNumberFields, AssetFields, MessageTypeFields, ActiveFlagFields, AffectedUnitMixin, AssetMixin, CapacityMixin, EventMixin, MessageMixin, RevisionMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     message_id: str = Field(alias="messageId")
@@ -178,7 +202,6 @@ class LegacyRemitListItem(AffectedUnitMixin, AssetMixin, CapacityMixin, EventMix
     event_type: EventtypeEnum = Field(alias="eventType")
     publish_date_time_string: Optional[str] = Field(default=None, alias="publishDateTimeString")
     participant_market_participant_id: Optional[str] = Field(default=None, alias="participantMarketParticipantId")
-    asset_id: str = Field(alias="assetId")
     asset_eic_code: Optional[str] = Field(default=None, alias="assetEicCode")
     asset_type: AssettypeEnum = Field(alias="assetType")
     affected_unit: str = Field(alias="affectedUnit")
@@ -194,9 +217,6 @@ class LegacyRemitListItem(AffectedUnitMixin, AssetMixin, CapacityMixin, EventMix
     cause: str
     event_status: EventstatusEnum = Field(alias="eventStatus")
     related_information: Optional[str] = Field(default=None, alias="relatedInformation")
-    active_flag: Optional[str] = Field(default=None, alias="activeFlag")
-    revision_number: int = Field(alias="revisionNumber")
-    message_type: MessagetypeEnum = Field(alias="messageType")
     unavailability_type: UnavailabilitytypeEnum = Field(alias="unavailabilityType")
     unavailable_capacity: float = Field(alias="unavailableCapacity")
     unavailable_capacity_specified: Optional[bool] = Field(default=None, alias="unavailableCapacitySpecified")
@@ -250,35 +270,28 @@ class LegacyRemitResponseList(BaseModel):
 class ApiResponseSourceMetadata(BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    datasets: Optional[List[str]] = Field(default=None, examples=[['DATASET']])
+    datasets: Optional[List[str]] = None
 
 
-class BalancingServicesVolume(SettlementFields, BmUnitFields, BmUnitMixin, BaseModel):
+class BalancingServicesVolume(SettlementFields, BmUnitFields, TimeFields, BmUnitMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     bm_unit_applicable_balancing_services_volume: Optional[float] = Field(default=None, alias="bmUnitApplicableBalancingServicesVolume", examples=[123.45])
-    time: Optional[datetime] = Field(default=None, examples=["2022-07-25T09:34:00Z"])
 
 
-class BidOfferAcceptancesResponse(TimeRangeFields, LevelRangeFields, BmUnitFields, SettlementDateMixin, AcceptanceMixin, BmUnitMixin, FlagsMixin, BaseModel):
+class BidOfferAcceptancesResponse(TimeRangeFields, LevelFields, BmUnitFields, SettlementPeriodRangeFields, AcceptanceFields, SoFlagFields, StorFlagFields, SettlementDateMixin, AcceptanceMixin, BmUnitMixin, FlagsMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     settlement_date: date = Field(alias="settlementDate", examples=["2022-06-25"])
-    settlement_period_from: int = Field(alias="settlementPeriodFrom", examples=[29])
-    settlement_period_to: int = Field(alias="settlementPeriodTo", examples=[32])
-    acceptance_number: int = Field(alias="acceptanceNumber", examples=[1234567])
-    acceptance_time: datetime = Field(alias="acceptanceTime", examples=["2022-06-25T13:30:00Z"])
     deemed_bo_flag: Optional[bool] = Field(default=None, alias="deemedBoFlag", examples=[True])
-    so_flag: Optional[bool] = Field(default=None, alias="soFlag", examples=[False])
-    stor_flag: Optional[bool] = Field(default=None, alias="storFlag", examples=[True])
     rr_flag: Optional[bool] = Field(default=None, alias="rrFlag", examples=[False])
 
 
-class BidOfferResponse(SettlementFields, TimeRangeFields, LevelRangeFields, BmUnitFields, BidOfferMixin, BmUnitMixin, PairIdMixin, BaseModel):
+class BidOfferResponse(SettlementFields, TimeRangeFields, LevelFields, BmUnitFields, BidOfferMixin, BmUnitMixin, PairIdMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    bid: Optional[float] = Field(default=None, examples=[668.67])
-    offer: Optional[float] = Field(default=None, examples=[-71.5])
+    bid: Optional[float] = None
+    offer: Optional[float] = None
     pair_id: int = Field(alias="pairId", examples=[1])
 
 
@@ -301,30 +314,23 @@ class BalancingServicesVolumeData(SettlementFields, BmUnitFields, DatasetFields,
     bm_unit_applicable_balancing_services_volume: Optional[float] = Field(default=None, alias="bmUnitApplicableBalancingServicesVolume", examples=[123.45])
 
 
-class BidOfferAcceptanceLevelDatasetResponse(TimeRangeFields, LevelRangeFields, BmUnitFields, DatasetFields, SettlementDateMixin, AcceptanceMixin, BmUnitMixin, DatasetMixin, FlagsMixin, BaseModel):
+class BidOfferAcceptanceLevelDatasetResponse(TimeRangeFields, LevelFields, BmUnitFields, SettlementPeriodRangeFields, AcceptanceFields, DatasetFields, SoFlagFields, StorFlagFields, AmendmentFlagFields, SettlementDateMixin, AcceptanceMixin, BmUnitMixin, DatasetMixin, FlagsMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     settlement_date: date = Field(alias="settlementDate", examples=["2022-07-25"])
-    settlement_period_from: int = Field(alias="settlementPeriodFrom", examples=[29])
-    settlement_period_to: int = Field(alias="settlementPeriodTo", examples=[32])
-    acceptance_number: int = Field(alias="acceptanceNumber", examples=[1234567])
-    acceptance_time: datetime = Field(alias="acceptanceTime", examples=["2022-06-25T13:37:00Z"])
     deemed_bo_flag: Optional[bool] = Field(default=None, alias="deemedBoFlag")
-    so_flag: Optional[bool] = Field(default=None, alias="soFlag")
-    amendment_flag: AmendmentflagEnum = Field(alias="amendmentFlag", examples=["ORI"])
-    stor_flag: Optional[bool] = Field(default=None, alias="storFlag")
     rr_flag: Optional[bool] = Field(default=None, alias="rrFlag")
 
 
-class BidOfferDatasetResponse(SettlementFields, TimeRangeFields, LevelRangeFields, BmUnitFields, DatasetFields, BidOfferMixin, BmUnitMixin, DatasetMixin, PairIdMixin, BaseModel):
+class BidOfferDatasetResponse(SettlementFields, TimeRangeFields, LevelFields, BmUnitFields, DatasetFields, BidOfferMixin, BmUnitMixin, DatasetMixin, PairIdMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     pair_id: int = Field(alias="pairId", examples=[1])
-    offer: Optional[float] = Field(default=None, examples=[-71.5])
-    bid: Optional[float] = Field(default=None, examples=[668.67])
+    offer: Optional[float] = None
+    bid: Optional[float] = None
 
 
-class CreditDefaultNoticeDatasetResponse(PublishTimeFields, DatasetFields, DatasetMixin, PublishTimeMixin, BaseModel):
+class CreditDefaultNoticeDatasetResponse(DatasetFields, PublishTimeFields, DatasetMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     bsc_party_id: Optional[str] = Field(default=None, alias="bscPartyId", examples=["INVE"])
@@ -336,23 +342,20 @@ class CreditDefaultNoticeDatasetResponse(PublishTimeFields, DatasetFields, Datas
     cleared_default_text: Optional[str] = Field(default=None, alias="clearedDefaultText", examples=["Credit Cover Percentage greater than or equal to 90% of Credit Limit (Level 2 Default)"])
 
 
-class DisaggregatedBalancingServicesAdjustmentData(SettlementFields, DatasetFields, VolumeFields, AssetMixin, DatasetMixin, FlagsMixin, VolumeMixin, CostMixin, BaseModel):
+class DisaggregatedBalancingServicesAdjustmentData(SettlementFields, DatasetFields, VolumeFields, AssetFields, IdFields, SoFlagFields, StorFlagFields, AssetMixin, DatasetMixin, FlagsMixin, VolumeMixin, CostMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    id: int = Field(examples=[1])
-    cost: float = Field(examples=[1850.9])
-    so_flag: Optional[bool] = Field(default=None, alias="soFlag")
-    stor_flag: Optional[bool] = Field(default=None, alias="storFlag")
+    cost: float
     party_id: Optional[str] = Field(default=None, alias="partyId", examples=["ElectroRoute Energy Trading Limited"])
-    asset_id: str = Field(alias="assetId", examples=["ING-ELTR1"])
     is_tendered: Optional[bool] = Field(default=None, alias="isTendered")
-    service: Optional[str] = Field(default=None, examples=["Energy"])
+    service: Optional[str] = None
 
 
-class MarketIndexDatasetResponse(SettlementFields, StartTimeFields, DatasetFields, PriceFields, VolumeFields, DatasetMixin, VolumeMixin, PriceMixin, BaseModel):
+class MarketIndexDatasetResponse(SettlementFields, DatasetFields, StartTimeFields, VolumeFields, DatasetMixin, VolumeMixin, PriceMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     data_provider: Optional[str] = Field(default=None, alias="dataProvider", examples=["N2EXMIDP"])
+    price: float
 
 
 class NetBalancingServicesAdjustmentData(SettlementFields, DatasetFields, DatasetMixin, BaseModel):
@@ -368,17 +371,14 @@ class NetBalancingServicesAdjustmentData(SettlementFields, DatasetFields, Datase
     sell_price_price_adjustment: Optional[float] = Field(default=None, alias="sellPricePriceAdjustment", examples=[0])
 
 
-class DisaggregatedBalancingServicesAdjustmentDetailsResponse(SettlementFields, StartTimeFields, PriceFields, VolumeFields, AssetMixin, FlagsMixin, VolumeMixin, CostMixin, PriceMixin, BaseModel):
+class DisaggregatedBalancingServicesAdjustmentDetailsResponse(SettlementFields, StartTimeFields, VolumeFields, AssetFields, IdFields, SoFlagFields, StorFlagFields, AssetMixin, FlagsMixin, VolumeMixin, CostMixin, PriceMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    id: int = Field(examples=[1])
-    cost: float = Field(examples=[1850.9])
-    so_flag: Optional[bool] = Field(default=None, alias="soFlag")
-    stor_flag: Optional[bool] = Field(default=None, alias="storFlag")
+    cost: float
+    price: float
     party_id: Optional[str] = Field(default=None, alias="partyId", examples=["ElectroRoute Energy Trading Limited"])
-    asset_id: str = Field(alias="assetId", examples=["ING-ELTR1"])
     is_tendered: Optional[bool] = Field(default=None, alias="isTendered")
-    service: Optional[str] = Field(default=None, examples=["Energy"])
+    service: Optional[str] = None
 
 
 class DisaggregatedBalancingServicesAdjustmentSummaryResponse(SettlementFields, StartTimeFields, BaseModel):
@@ -397,63 +397,57 @@ class DisaggregatedBalancingServicesAdjustmentSummaryResponse(SettlementFields, 
     net_volume: Optional[float] = Field(default=None, alias="netVolume", examples=[36])
 
 
-class DeliveryPeriodMaxData(SettlementFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
+class DeliveryPeriodMaxData(SettlementFields, BmUnitFields, DatasetFields, TimeFields, BmUnitMixin, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    time: Optional[datetime] = Field(default=None, examples=["2022-07-25T09:34:00Z"])
     period_max: Optional[int] = Field(default=None, alias="periodMax", examples=[360])
 
 
-class DeliveryPeriodMinData(SettlementFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
+class DeliveryPeriodMinData(SettlementFields, BmUnitFields, DatasetFields, TimeFields, BmUnitMixin, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    time: Optional[datetime] = Field(default=None, examples=["2022-07-25T09:34:00Z"])
     period_min: Optional[int] = Field(default=None, alias="periodMin", examples=[360])
 
 
-class DeliveryVolumeMaxData(SettlementFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
+class DeliveryVolumeMaxData(SettlementFields, BmUnitFields, DatasetFields, TimeFields, BmUnitMixin, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    time: Optional[datetime] = Field(default=None, examples=["2022-07-01T13:34:00Z"])
     volume_max: Optional[int] = Field(default=None, alias="volumeMax", examples=[31])
 
 
-class NoticeData(SettlementFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
+class NoticeData(SettlementFields, BmUnitFields, DatasetFields, TimeFields, BmUnitMixin, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    time: Optional[datetime] = Field(default=None, examples=["2022-07-01T13:34:00Z"])
-    notice: Optional[int] = Field(default=None, examples=[13])
+    notice: Optional[int] = None
 
 
-class StablePortageLimitData(SettlementFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
+class StablePortageLimitData(SettlementFields, BmUnitFields, DatasetFields, TimeFields, BmUnitMixin, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    time: Optional[datetime] = Field(default=None, examples=["2022-07-01T13:34:00Z"])
-    level: Optional[int] = Field(default=None, examples=[5])
+    level: Optional[int] = None
 
 
-class DynamicData(SettlementFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
+class DynamicData(SettlementFields, BmUnitFields, DatasetFields, TimeFields, BmUnitMixin, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    time: Optional[datetime] = Field(default=None, examples=["2022-07-01T13:34:00Z"])
-    value: Optional[int] = Field(default=None, examples=[5])
+    value: Optional[int] = None
 
 
-class RateData(SettlementFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
+class RateData(SettlementFields, BmUnitFields, DatasetFields, TimeFields, BmUnitMixin, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    time: Optional[datetime] = Field(default=None, examples=["2022-07-01T13:34:00Z"])
-    rate1: Optional[float] = Field(default=None, examples=[0.4])
-    elbow2: Optional[float] = Field(default=None, examples=[5])
-    rate2: Optional[float] = Field(default=None, examples=[300.2])
+    rate1: Optional[float] = None
+    elbow2: Optional[float] = None
+    rate2: Optional[float] = None
     elbow3: Optional[float] = None
     rate3: Optional[float] = None
 
 
-class MarketIndexResponse(SettlementFields, StartTimeFields, PriceFields, VolumeFields, VolumeMixin, PriceMixin, BaseModel):
+class MarketIndexResponse(SettlementFields, StartTimeFields, VolumeFields, VolumeMixin, PriceMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     data_provider: Optional[str] = Field(default=None, alias="dataProvider", examples=["N2EXMIDP"])
+    price: float
 
 
 class NetBalancingServicesAdjustmentResponse(SettlementFields, StartTimeFields, BaseModel):
@@ -474,28 +468,26 @@ class NonBmStorResponse(SettlementFields, PublishTimeFields, StartTimeFields, Ge
 
 
 
-class DeliveryLimitMaxData(SettlementFields, TimeRangeFields, LevelRangeFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
+class DeliveryLimitMaxData(SettlementFields, TimeRangeFields, LevelFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     notification_time: Optional[datetime] = Field(default=None, alias="notificationTime", examples=["2022-07-01T13:34:00Z"])
     notification_sequence: Optional[int] = Field(default=None, alias="notificationSequence", examples=[93210322])
 
 
-class PhysicalNotificationData(SettlementFields, TimeRangeFields, LevelRangeFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
+class PhysicalNotificationData(SettlementFields, TimeRangeFields, LevelFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class PhysicalData(SettlementFields, TimeRangeFields, LevelRangeFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
+class PhysicalData(SettlementFields, TimeRangeFields, LevelFields, BmUnitFields, DatasetFields, BmUnitMixin, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class AcceptanceVolumeResponse(SettlementFields, BmUnitFields, StartTimeFields, CreatedDateTimeFields, BmUnitMixin, CreatedDateTimeMixin, LeadPartyMixin, BaseModel):
+class AcceptanceVolumeResponse(SettlementFields, BmUnitFields, StartTimeFields, CreatedDateTimeFields, BmUnitTypeFields, LeadPartyFields, BmUnitMixin, CreatedDateTimeMixin, LeadPartyMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    bm_unit_type: BmunittypeEnum = Field(alias="bmUnitType", examples=["T"])
-    lead_party_name: str = Field(alias="leadPartyName", examples=["Aberdeen Offshore Wind Farm"])
     acceptance_id: int = Field(alias="acceptanceId", examples=[76110])
     acceptance_duration: Optional[str] = Field(default=None, alias="acceptanceDuration", examples=["L"])
     total_volume_accepted: Optional[float] = Field(default=None, alias="totalVolumeAccepted", examples=[-75.725])
@@ -506,9 +498,9 @@ class DerivedDataBidOfferPairs(BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     negative1: Optional[float] = None
-    positive1: Optional[float] = Field(default=None, examples=[23062.377])
+    positive1: Optional[float] = None
     negative2: Optional[float] = None
-    positive2: Optional[float] = Field(default=None, examples=[5017.6255])
+    positive2: Optional[float] = None
     negative3: Optional[float] = None
     positive3: Optional[float] = None
     negative4: Optional[float] = None
@@ -519,66 +511,53 @@ class DerivedDataBidOfferPairs(BaseModel):
     positive6: Optional[float] = None
 
 
-class HistoricAcceptanceResponse(SettlementFields, BmUnitFields, AcceptanceMixin, BmUnitMixin, BaseModel):
+class HistoricAcceptanceResponse(SettlementFields, BmUnitFields, AcceptanceFields, BidOfferPriceFields, AcceptanceMixin, BmUnitMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    acceptance_number: int = Field(alias="acceptanceNumber", examples=[22])
-    acceptance_time: datetime = Field(alias="acceptanceTime", examples=["2023-11-15T00:00:00Z"])
-    bid_price: Optional[float] = Field(default=None, alias="bidPrice", examples=[-44.95])
-    offer_price: Optional[float] = Field(default=None, alias="offerPrice", examples=[449.95])
     bid_offer_pair_id: Optional[int] = Field(default=None, alias="bidOfferPairId", examples=[1])
 
 
-class IndicativeCashflowResponse(SettlementFields, BmUnitFields, StartTimeFields, CreatedDateTimeFields, BmUnitMixin, CreatedDateTimeMixin, LeadPartyMixin, BaseModel):
+class IndicativeCashflowResponse(SettlementFields, BmUnitFields, StartTimeFields, CreatedDateTimeFields, BmUnitTypeFields, LeadPartyFields, BmUnitMixin, CreatedDateTimeMixin, LeadPartyMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    bm_unit_type: BmunittypeEnum = Field(alias="bmUnitType", examples=["S"])
-    lead_party_name: str = Field(alias="leadPartyName", examples=["Flexitricity Limited"])
     bid_offer_pair_cashflows: Optional[DerivedDataBidOfferPairs] = Field(default=None, alias="bidOfferPairCashflows")
     total_cashflow: Optional[float] = Field(default=None, alias="totalCashflow", examples=[28080.002])
 
 
-class IndicativeVolumeResponse(SettlementFields, BmUnitFields, StartTimeFields, CreatedDateTimeFields, BmUnitMixin, CreatedDateTimeMixin, LeadPartyMixin, BaseModel):
+class IndicativeVolumeResponse(SettlementFields, BmUnitFields, StartTimeFields, CreatedDateTimeFields, BmUnitTypeFields, LeadPartyFields, BmUnitMixin, CreatedDateTimeMixin, LeadPartyMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    bm_unit_type: BmunittypeEnum = Field(alias="bmUnitType", examples=["T"])
-    lead_party_name: str = Field(alias="leadPartyName", examples=["Aberdeen Offshore Wind Farm"])
     data_type: Optional[str] = Field(default=None, alias="dataType", examples=["Original"])
     total_volume_accepted: Optional[float] = Field(default=None, alias="totalVolumeAccepted", examples=[-75.725])
     pair_volumes: Optional[DerivedDataBidOfferPairs] = Field(default=None, alias="pairVolumes")
 
 
-class MarketDepthResponse(SettlementFields, BaseModel):
+class MarketDepthResponse(SettlementFields, BidOfferVolumeFields, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     indicated_imbalance: Optional[int] = Field(default=None, alias="indicatedImbalance", examples=[419])
-    offer_volume: Optional[float] = Field(default=None, alias="offerVolume", examples=[51708.5])
-    bid_volume: Optional[float] = Field(default=None, alias="bidVolume", examples=[-60941.5])
     total_accepted_offer_volume: Optional[float] = Field(default=None, alias="totalAcceptedOfferVolume", examples=[376.35834])
     total_accepted_bid_volume: Optional[float] = Field(default=None, alias="totalAcceptedBidVolume", examples=[-164.875])
     priced_accepted_offers_volume: Optional[float] = Field(default=None, alias="pricedAcceptedOffersVolume", examples=[573.8417])
     priced_accepted_bids_volume: Optional[float] = Field(default=None, alias="pricedAcceptedBidsVolume", examples=[-42.375])
 
 
-class SettlementMessageResponse(SettlementFields, StartTimeFields, BaseModel):
+class SettlementMessageResponse(SettlementFields, StartTimeFields, MessageTypeFields, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     message_received_date_time: datetime = Field(alias="messageReceivedDateTime", examples=["2023-09-17T15:31:12Z"])
     message_severity: Optional[str] = Field(default=None, alias="messageSeverity", examples=["Error"])
     message_type_code: Optional[str] = Field(default=None, alias="messageTypeCode", examples=["ERR-BM-001"])
-    message_type: MessagetypeEnum = Field(alias="messageType", examples=["FPN"])
     message_text: Optional[str] = Field(default=None, alias="messageText", examples=["No FPN files have been received."])
 
 
-class SettlementStackResponse(SettlementFields, StartTimeFields, VolumeFields, CreatedDateTimeFields, CreatedDateTimeMixin, FlagsMixin, VolumeMixin, BaseModel):
+class SettlementStackResponse(SettlementFields, StartTimeFields, VolumeFields, CreatedDateTimeFields, IdFields, SoFlagFields, CreatedDateTimeMixin, FlagsMixin, VolumeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     sequence_number: Optional[int] = Field(default=None, alias="sequenceNumber", examples=[1])
-    id: str = Field(examples=["T_STAY-2"])
     acceptance_id: int = Field(alias="acceptanceId", examples=[102999])
     bid_offer_pair_id: Optional[int] = Field(default=None, alias="bidOfferPairId", examples=[1])
     cadl_flag: Optional[bool] = Field(default=None, alias="cadlFlag", examples=[False])
-    so_flag: Optional[bool] = Field(default=None, alias="soFlag", examples=[False])
     stor_provider_flag: Optional[bool] = Field(default=None, alias="storProviderFlag", examples=[False])
     repriced_indicator: Optional[bool] = Field(default=None, alias="repricedIndicator", examples=[False])
     reserve_scarcity_price: Optional[float] = Field(default=None, alias="reserveScarcityPrice", examples=[0])
@@ -596,14 +575,14 @@ class SettlementStackResponse(SettlementFields, StartTimeFields, VolumeFields, C
 class SettlementSummaryPrice(VolumeFields, VolumeMixin, CostMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    cost: float = Field(examples=[-53.66])
-    value: Optional[float] = Field(default=None, examples=[54])
+    cost: float
+    value: Optional[float] = None
 
 
 class SettlementSummaryResponse(SettlementFields, StartTimeFields, CreatedDateTimeFields, CreatedDateTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    adjuster: Optional[float] = Field(default=None, examples=[0])
+    adjuster: Optional[float] = None
     price_derivation_code: Optional[PricederivationcodeEnum] = Field(default=None, alias="priceDerivationCode", examples=["N"])
     system_sell_price: Optional[float] = Field(default=None, alias="systemSellPrice", examples=[54])
     system_buy_price: Optional[float] = Field(default=None, alias="systemBuyPrice", examples=[54])
@@ -1078,77 +1057,70 @@ class RemitMessage_DatasetResponse(BaseModel):
     data: Optional[List[RemitMessage]] = None
 
 
-class DemandForecastNationalDaily(PublishTimeFields, DatasetFields, DemandFields, ForecastDateFields, DatasetMixin, DemandMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
+class DemandForecastNationalDaily(DatasetFields, PublishTimeFields, ForecastDateFields, DemandFields, DatasetMixin, DemandMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class DemandForecastNationalDayAhead(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, DemandFields, BoundaryFields, DatasetMixin, DemandMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
+class DemandForecastNationalDayAhead(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, DemandFields, BoundaryFields, DatasetMixin, DemandMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class DemandForecastNationalWeekly(PublishTimeFields, DatasetFields, DemandFields, YearFields, WeekFields, DatasetMixin, DemandMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
+class DemandForecastNationalWeekly(DatasetFields, PublishTimeFields, YearFields, DemandFields, WeekFields, DatasetMixin, DemandMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class DemandForecastTransmissionDaily(PublishTimeFields, DatasetFields, DemandFields, ForecastDateFields, DatasetMixin, DemandMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
+class DemandForecastTransmissionDaily(DatasetFields, PublishTimeFields, ForecastDateFields, DemandFields, DatasetMixin, DemandMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class DemandForecastTransmissionDayAhead(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, DemandFields, BoundaryFields, DatasetMixin, DemandMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
+class DemandForecastTransmissionDayAhead(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, DemandFields, BoundaryFields, DatasetMixin, DemandMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class DemandForecastTransmissionWeekly(PublishTimeFields, DatasetFields, DemandFields, YearFields, WeekFields, DatasetMixin, DemandMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
+class DemandForecastTransmissionWeekly(DatasetFields, PublishTimeFields, YearFields, DemandFields, WeekFields, DatasetMixin, DemandMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class DemandForecastDaily(PublishTimeFields, ForecastDateFields, ForecastDateMixin, PublishTimeMixin, BaseModel):
+class DemandForecastDaily(PublishTimeFields, ForecastDateFields, TransmissionDemandFields, NationalDemandFields, ForecastDateMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    transmission_system_demand: int = Field(alias="transmissionSystemDemand")
-    national_demand: int = Field(alias="nationalDemand")
 
 
-class DemandForecastDayAhead(SettlementFields, PublishTimeFields, StartTimeFields, BoundaryFields, BoundaryMixin, PublishTimeMixin, BaseModel):
+class DemandForecastDayAhead(SettlementFields, PublishTimeFields, StartTimeFields, BoundaryFields, TransmissionDemandFields, NationalDemandFields, BoundaryMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    transmission_system_demand: int = Field(alias="transmissionSystemDemand")
-    national_demand: int = Field(alias="nationalDemand")
 
 
-class DemandForecastPeak(SettlementFields, PublishTimeFields, StartTimeFields, BoundaryFields, BoundaryMixin, PublishTimeMixin, BaseModel):
+class DemandForecastPeak(SettlementFields, PublishTimeFields, StartTimeFields, BoundaryFields, TransmissionDemandFields, BoundaryMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    transmission_system_demand: int = Field(alias="transmissionSystemDemand")
 
 
-class DemandForecastWeekly(PublishTimeFields, PublishTimeMixin, BaseModel):
+class DemandForecastWeekly(PublishTimeFields, TransmissionDemandFields, NationalDemandFields, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    transmission_system_demand: int = Field(alias="transmissionSystemDemand")
-    national_demand: int = Field(alias="nationalDemand")
     forecast_week: int = Field(alias="forecastWeek")
     forecast_year: int = Field(alias="forecastYear")
     week_start_date: date = Field(alias="weekStartDate")
 
 
-class DemandOutturnNational(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, DemandFields, DatasetMixin, DemandMixin, PublishTimeMixin, BaseModel):
+class DemandOutturnNational(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, DemandFields, DatasetMixin, DemandMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class DemandOutturnTransmission(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, DemandFields, DatasetMixin, DemandMixin, PublishTimeMixin, BaseModel):
+class DemandOutturnTransmission(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, DemandFields, DatasetMixin, DemandMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class IndodDatasetRow(PublishTimeFields, DatasetFields, DemandFields, SettlementDateMixin, DatasetMixin, DemandMixin, PublishTimeMixin, BaseModel):
+class IndodDatasetRow(DatasetFields, PublishTimeFields, DemandFields, SettlementDateMixin, DatasetMixin, DemandMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     settlement_date: date = Field(alias="settlementDate", examples=["2023-08-26"])
@@ -1186,149 +1158,117 @@ class RollingSystemDemand(StartTimeFields, DemandFields, DemandMixin, BaseModel)
     record_type: Optional[RecordtypeEnum] = Field(default=None, alias="recordType")
 
 
-class ForecastMarginDaily(PublishTimeFields, DatasetFields, ForecastDateFields, DatasetMixin, MarginMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
+class ForecastMarginDaily(DatasetFields, PublishTimeFields, ForecastDateFields, MarginFields, DatasetMixin, MarginMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    margin: int
 
 
-class ForecastMarginWeekly(PublishTimeFields, DatasetFields, YearFields, WeekFields, DatasetMixin, MarginMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
+class ForecastMarginWeekly(DatasetFields, PublishTimeFields, YearFields, WeekFields, MarginFields, DatasetMixin, MarginMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    margin: int
 
 
-class ForecastMarginDaily_1(PublishTimeFields, ForecastDateFields, MarginMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
+class ForecastMarginDaily_1(PublishTimeFields, ForecastDateFields, MarginFields, MarginMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    margin: int
 
 
-class ForecastMarginWeekly_1(PublishTimeFields, YearFields, WeekFields, MarginMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
+class ForecastMarginWeekly_1(PublishTimeFields, YearFields, WeekFields, MarginFields, MarginMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    margin: int
     week_start_date: date = Field(alias="weekStartDate")
 
 
-class ForecastSurplusDaily(PublishTimeFields, DatasetFields, ForecastDateFields, DatasetMixin, SurplusMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
+class ForecastSurplusDaily(DatasetFields, PublishTimeFields, ForecastDateFields, SurplusFields, DatasetMixin, SurplusMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    surplus: int
 
 
-class ForecastSurplusWeekly(PublishTimeFields, DatasetFields, YearFields, WeekFields, DatasetMixin, SurplusMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
+class ForecastSurplusWeekly(DatasetFields, PublishTimeFields, YearFields, WeekFields, SurplusFields, DatasetMixin, SurplusMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    surplus: int
 
 
-class ForecastSurplusDaily_1(PublishTimeFields, ForecastDateFields, SurplusMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
+class ForecastSurplusDaily_1(PublishTimeFields, ForecastDateFields, SurplusFields, SurplusMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    surplus: int
 
 
-class ForecastSurplusWeekly_1(PublishTimeFields, YearFields, WeekFields, SurplusMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
+class ForecastSurplusWeekly_1(PublishTimeFields, YearFields, WeekFields, SurplusFields, SurplusMixin, YearMixin, WeekMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    surplus: int
     week_start_date: date = Field(alias="weekStartDate")
 
 
-class AvailabilityDaily(PublishTimeFields, DatasetFields, ForecastDateFields, BmUnitMixin, DatasetMixin, FuelTypeMixin, ForecastDateMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
+class AvailabilityDaily(DatasetFields, PublishTimeFields, ForecastDateFields, FuelTypeFields, OutputUsableFields, BmUnitMixin, DatasetMixin, FuelTypeMixin, ForecastDateMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    fuel_type: FueltypeEnum = Field(alias="fuelType", examples=["CCGT"])
     ngc_bm_unit: Optional[str] = Field(default=None, alias="ngcBmUnit", examples=["CARR-1"])
     bm_unit: str = Field(alias="bmUnit", examples=["T_CARR-1"])
-    output_usable: int = Field(alias="outputUsable", examples=[418])
 
 
-class AvailabilityWeekly(PublishTimeFields, DatasetFields, YearFields, BmUnitMixin, DatasetMixin, FuelTypeMixin, YearMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
+class AvailabilityWeekly(DatasetFields, PublishTimeFields, YearFields, FuelTypeFields, OutputUsableFields, BmUnitMixin, DatasetMixin, FuelTypeMixin, YearMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    fuel_type: FueltypeEnum = Field(alias="fuelType", examples=["CCGT"])
     ngc_bm_unit: Optional[str] = Field(default=None, alias="ngcBmUnit", examples=["CARR-1"])
     bm_unit: str = Field(alias="bmUnit", examples=["T_CARR-1"])
-    output_usable: int = Field(alias="outputUsable", examples=[418])
     calendar_week_number: int = Field(alias="calendarWeekNumber", examples=[23])
 
 
-class AugmentedOutturnData(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, GenerationFields, DatasetMixin, FuelTypeMixin, GenerationMixin, PublishTimeMixin, BaseModel):
+class AugmentedOutturnData(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, FuelTypeFields, GenerationFields, DatasetMixin, FuelTypeMixin, GenerationMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    fuel_type: FueltypeEnum = Field(alias="fuelType", examples=["BIOMASS"])
 
 
-class AvailabilityByBmUnitDaily(BmUnitFields, PublishTimeFields, DatasetFields, ForecastDateFields, BmUnitMixin, DatasetMixin, FuelTypeMixin, ForecastDateMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
+class AvailabilityByBmUnitDaily(BmUnitFields, DatasetFields, PublishTimeFields, ForecastDateFields, FuelTypeFields, OutputUsableFields, BmUnitMixin, DatasetMixin, FuelTypeMixin, ForecastDateMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    fuel_type: FueltypeEnum = Field(alias="fuelType", examples=["WIND"])
-    output_usable: int = Field(alias="outputUsable", examples=[84])
 
 
-class AvailabilityByBmUnitWeekly(BmUnitFields, PublishTimeFields, DatasetFields, YearFields, WeekFields, BmUnitMixin, DatasetMixin, FuelTypeMixin, YearMixin, WeekMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
+class AvailabilityByBmUnitWeekly(BmUnitFields, DatasetFields, PublishTimeFields, YearFields, FuelTypeFields, OutputUsableFields, WeekFields, BmUnitMixin, DatasetMixin, FuelTypeMixin, YearMixin, WeekMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    fuel_type: FueltypeEnum = Field(alias="fuelType", examples=["CCGT"])
-    output_usable: int = Field(alias="outputUsable", examples=[442])
 
 
-class AvailabilityByFuelTypeDaily(PublishTimeFields, DatasetFields, ForecastDateFields, DatasetMixin, FuelTypeMixin, ForecastDateMixin, OutputUsableMixin, BiddingZoneMixin, InterconnectorMixin, PublishTimeMixin, BaseModel):
+class AvailabilityByFuelTypeDaily(DatasetFields, PublishTimeFields, ForecastDateFields, FuelTypeFields, OutputUsableFields, BiddingZoneFields, SystemZoneFields, InterconnectorFields, DatasetMixin, FuelTypeMixin, ForecastDateMixin, OutputUsableMixin, BiddingZoneMixin, InterconnectorMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    fuel_type: FueltypeEnum = Field(alias="fuelType")
-    system_zone: SystemzoneEnum = Field(alias="systemZone")
     forecast_date_timezone: Optional[str] = Field(default=None, alias="forecastDateTimezone")
-    output_usable: int = Field(alias="outputUsable")
-    bidding_zone: str = Field(alias="biddingZone")
-    interconnector_name: str = Field(alias="interconnectorName")
     interconnector: Optional[bool] = None
 
 
-class AvailabilityByFuelTypeWeekly(PublishTimeFields, DatasetFields, YearFields, DatasetMixin, FuelTypeMixin, YearMixin, OutputUsableMixin, BiddingZoneMixin, InterconnectorMixin, PublishTimeMixin, BaseModel):
+class AvailabilityByFuelTypeWeekly(DatasetFields, PublishTimeFields, YearFields, FuelTypeFields, OutputUsableFields, BiddingZoneFields, SystemZoneFields, InterconnectorFields, DatasetMixin, FuelTypeMixin, YearMixin, OutputUsableMixin, BiddingZoneMixin, InterconnectorMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    fuel_type: FueltypeEnum = Field(alias="fuelType")
-    system_zone: SystemzoneEnum = Field(alias="systemZone")
     calendar_week_number: int = Field(alias="calendarWeekNumber")
-    output_usable: int = Field(alias="outputUsable")
-    bidding_zone: str = Field(alias="biddingZone")
-    interconnector_name: str = Field(alias="interconnectorName")
     interconnector: Optional[bool] = None
 
 
-class AvailabilityDaily_1(PublishTimeFields, DatasetFields, ForecastDateFields, DatasetMixin, ForecastDateMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
+class AvailabilityDaily_1(DatasetFields, PublishTimeFields, ForecastDateFields, OutputUsableFields, SystemZoneFields, DatasetMixin, ForecastDateMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    system_zone: SystemzoneEnum = Field(alias="systemZone")
     forecast_date_timezone: Optional[str] = Field(default=None, alias="forecastDateTimezone")
-    output_usable: int = Field(alias="outputUsable")
 
 
-class AvailabilityWeekly_1(PublishTimeFields, DatasetFields, YearFields, DatasetMixin, YearMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
+class AvailabilityWeekly_1(DatasetFields, PublishTimeFields, YearFields, OutputUsableFields, SystemZoneFields, DatasetMixin, YearMixin, OutputUsableMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    system_zone: SystemzoneEnum = Field(alias="systemZone")
     calendar_week_number: int = Field(alias="calendarWeekNumber")
-    output_usable: int = Field(alias="outputUsable")
 
 
-class NonBmStorData(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, GenerationFields, DatasetMixin, GenerationMixin, PublishTimeMixin, BaseModel):
+class NonBmStorData(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, GenerationFields, DatasetMixin, GenerationMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class WindGenerationForecast(PublishTimeFields, StartTimeFields, DatasetFields, GenerationFields, DatasetMixin, GenerationMixin, PublishTimeMixin, BaseModel):
+class WindGenerationForecast(DatasetFields, PublishTimeFields, StartTimeFields, GenerationFields, DatasetMixin, GenerationMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class GenerationByFuelType(DatasetFields, DatasetMixin, FuelTypeMixin, BaseModel):
+class GenerationByFuelType(DatasetFields, FuelTypeFields, DatasetMixin, FuelTypeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    fuel_type: FueltypeEnum = Field(alias="fuelType")
     current_usage: Optional[int] = Field(default=None, alias="currentUsage")
     current_percentage: Optional[float] = Field(default=None, alias="currentPercentage")
     half_hour_usage: Optional[int] = Field(default=None, alias="halfHourUsage")
@@ -1337,11 +1277,10 @@ class GenerationByFuelType(DatasetFields, DatasetMixin, FuelTypeMixin, BaseModel
     twenty_four_hour_percentage: Optional[float] = Field(default=None, alias="twentyFourHourPercentage")
 
 
-class HalfHourlyInterconnectorOutturn(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, GenerationFields, DatasetMixin, GenerationMixin, InterconnectorMixin, PublishTimeMixin, BaseModel):
+class HalfHourlyInterconnectorOutturn(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, GenerationFields, InterconnectorFields, DatasetMixin, GenerationMixin, InterconnectorMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     settlement_date_timezone: Optional[str] = Field(default=None, alias="settlementDateTimezone")
-    interconnector_name: str = Field(alias="interconnectorName")
 
 
 class OutturnGenerationBySettlementPeriod(StartTimeFields, BaseModel):
@@ -1351,10 +1290,9 @@ class OutturnGenerationBySettlementPeriod(StartTimeFields, BaseModel):
     data: Optional[List[OutturnGenerationValue]] = None
 
 
-class OutturnGenerationValue(GenerationFields, FuelTypeMixin, GenerationMixin, BaseModel):
+class OutturnGenerationValue(FuelTypeFields, GenerationFields, FuelTypeMixin, GenerationMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    fuel_type: FueltypeEnum = Field(alias="fuelType")
 
 
 class WindGenerationForecast_1(SettlementFields, PublishTimeFields, StartTimeFields, GenerationFields, GenerationMixin, PublishTimeMixin, BaseModel):
@@ -1362,26 +1300,25 @@ class WindGenerationForecast_1(SettlementFields, PublishTimeFields, StartTimeFie
 
 
 
-class IndicatedDemand(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, DemandFields, BoundaryFields, DatasetMixin, DemandMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
+class IndicatedDemand(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, DemandFields, BoundaryFields, DatasetMixin, DemandMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class IndicatedGeneration(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, GenerationFields, BoundaryFields, DatasetMixin, GenerationMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
+class IndicatedGeneration(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, BoundaryFields, GenerationFields, DatasetMixin, GenerationMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class IndicatedImbalance(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, BoundaryFields, DatasetMixin, ImbalanceMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
+class IndicatedImbalance(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, BoundaryFields, DatasetMixin, ImbalanceMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     imbalance: int
 
 
-class IndicatedMargin(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, BoundaryFields, DatasetMixin, MarginMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
+class IndicatedMargin(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, BoundaryFields, MarginFields, DatasetMixin, MarginMixin, BoundaryMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    margin: int
 
 
 class IndicatedForecast(SettlementFields, PublishTimeFields, StartTimeFields, BoundaryFields, BoundaryMixin, PublishTimeMixin, BaseModel):
@@ -1393,21 +1330,19 @@ class IndicatedForecast(SettlementFields, PublishTimeFields, StartTimeFields, Bo
     indicated_imbalance: Optional[int] = Field(default=None, alias="indicatedImbalance")
 
 
-class DemandControlInstructionDatasetRow(TimeRangeFields, PublishTimeFields, DatasetFields, VolumeFields, DatasetMixin, MridMixin, VolumeMixin, PublishTimeMixin, RevisionMixin, BaseModel):
+class DemandControlInstructionDatasetRow(TimeRangeFields, DatasetFields, PublishTimeFields, VolumeFields, RevisionNumberFields, AmendmentFlagFields, DatasetMixin, MridMixin, VolumeMixin, PublishTimeMixin, RevisionMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     m_rid: str = Field(alias="mRID", examples=["DCI_202104300853_00000030"])
-    revision_number: int = Field(alias="revisionNumber", examples=[1])
     publishing_period_commencing_time: datetime = Field(alias="publishingPeriodCommencingTime", examples=["2021-04-30T08:53:39Z"])
     affected_dso: str = Field(alias="affectedDso", examples=["SP(D)"])
     demand_control_id: str = Field(alias="demandControlId", examples=["00135"])
     instruction_sequence: int = Field(alias="instructionSequence", examples=[1])
     demand_control_event_flag: str = Field(alias="demandControlEventFlag", examples=["I"])
     system_management_action_flag: Optional[str] = Field(default=None, alias="systemManagementActionFlag", examples=["T"])
-    amendment_flag: AmendmentflagEnum = Field(alias="amendmentFlag", examples=["ORI"])
 
 
-class LossOfLoadProbabilityDeratedMarginData(SettlementFields, PublishTimeFields, StartTimeFields, DatasetFields, DatasetMixin, PublishTimeMixin, BaseModel):
+class LossOfLoadProbabilityDeratedMarginData(SettlementFields, DatasetFields, PublishTimeFields, StartTimeFields, DatasetMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     publishing_period_commencing_time: datetime = Field(alias="publishingPeriodCommencingTime", examples=["2023-01-31 17:30Z"])
@@ -1415,7 +1350,7 @@ class LossOfLoadProbabilityDeratedMarginData(SettlementFields, PublishTimeFields
     derated_margin: Optional[float] = Field(default=None, alias="deratedMargin", examples=[12570.207])
 
 
-class SoSoPricesDatasetRow(PublishTimeFields, StartTimeFields, DatasetFields, SettlementDateMixin, DatasetMixin, PublishTimeMixin, BaseModel):
+class SoSoPricesDatasetRow(StartEndTimeFields, DatasetFields, PublishTimeFields, SettlementDateMixin, DatasetMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     sender_identification: Optional[str] = Field(default=None, alias="senderIdentification", examples=["10X1001A1001A515"])
@@ -1426,7 +1361,6 @@ class SoSoPricesDatasetRow(PublishTimeFields, StartTimeFields, DatasetFields, Se
     trade_quantity: float = Field(alias="tradeQuantity", examples=[25])
     trade_price: float = Field(alias="tradePrice", examples=[30.4])
     trader_unit: str = Field(alias="traderUnit", examples=["EWIC_EG"])
-    end_time: Optional[datetime] = Field(default=None, alias="endTime", examples=["2023-09-20 18:30"])
     settlement_date: date = Field(alias="settlementDate", examples=["2023-01-31"])
 
 
@@ -1437,21 +1371,21 @@ class SystemFrequency(DatasetFields, DatasetMixin, FrequencyMixin, BaseModel):
     frequency: float
 
 
-class SystemWarningsData(PublishTimeFields, DatasetFields, DatasetMixin, PublishTimeMixin, BaseModel):
+class SystemWarningsData(DatasetFields, PublishTimeFields, DatasetMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     warning_type: WarningtypeEnum = Field(alias="warningType", examples=["SO-SO TRADES"])
     warning_text: Optional[str] = Field(default=None, alias="warningText", examples=["NATIONAL GRID NOTIFICATION of excess energy prices used for settlement outside of BALIT for SO to SO Transactions"])
 
 
-class TemperatureData(PublishTimeFields, DatasetFields, DatasetMixin, TemperatureMixin, PublishTimeMixin, BaseModel):
+class TemperatureData(DatasetFields, PublishTimeFields, DatasetMixin, TemperatureMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     measurement_date: Optional[date] = Field(default=None, alias="measurementDate")
     temperature: float
 
 
-class TudmDatasetRow(SettlementFields, StartTimeFields, DatasetFields, DatasetMixin, BaseModel):
+class TudmDatasetRow(SettlementFields, DatasetFields, StartTimeFields, DatasetMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     serial_number: Optional[str] = Field(default=None, alias="serialNumber", examples=["000000980321"])
@@ -1465,18 +1399,16 @@ class TudmDatasetRow(SettlementFields, StartTimeFields, DatasetFields, DatasetMi
     net_volume: Optional[float] = Field(default=None, alias="netVolume", examples=[-1162.434])
 
 
-class DemandControlInstructionData(TimeRangeFields, PublishTimeFields, VolumeFields, MridMixin, VolumeMixin, PublishTimeMixin, RevisionMixin, BaseModel):
+class DemandControlInstructionData(TimeRangeFields, PublishTimeFields, VolumeFields, RevisionNumberFields, AmendmentFlagFields, MridMixin, VolumeMixin, PublishTimeMixin, RevisionMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     m_rid: str = Field(alias="mRID", examples=["DCI_202104300853_00000030"])
-    revision_number: int = Field(alias="revisionNumber", examples=[1])
     publishing_period_commencing_time: datetime = Field(alias="publishingPeriodCommencingTime", examples=["2021-04-30T08:53:39Z"])
     affected_dso: str = Field(alias="affectedDso", examples=["SP(D)"])
     demand_control_id: str = Field(alias="demandControlId", examples=["00135"])
     instruction_sequence: int = Field(alias="instructionSequence", examples=[1])
     demand_control_event_flag: str = Field(alias="demandControlEventFlag", examples=["I"])
     system_management_action_flag: Optional[str] = Field(default=None, alias="systemManagementActionFlag", examples=["T"])
-    amendment_flag: AmendmentflagEnum = Field(alias="amendmentFlag", examples=["ORI"])
 
 
 class LossOfLoadProbabilityDeratedMarginResponse(SettlementFields, PublishTimeFields, StartTimeFields, PublishTimeMixin, BaseModel):
@@ -1523,15 +1455,12 @@ class TemperatureData_1(PublishTimeFields, TemperatureMixin, PublishTimeMixin, B
     temperature_reference_low: Optional[float] = Field(default=None, alias="temperatureReferenceLow")
 
 
-class BmUnitData(BmUnitMixin, FuelTypeMixin, LeadPartyMixin, BaseModel):
+class BmUnitData(FuelTypeFields, BmUnitTypeFields, LeadPartyFields, BmUnitMixin, FuelTypeMixin, LeadPartyMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     national_grid_bm_unit: str = Field(alias="nationalGridBmUnit")
     elexon_bm_unit: Optional[str] = Field(default=None, alias="elexonBmUnit")
     eic: Optional[str] = None
-    fuel_type: FueltypeEnum = Field(alias="fuelType")
-    lead_party_name: str = Field(alias="leadPartyName")
-    bm_unit_type: BmunittypeEnum = Field(alias="bmUnitType")
     fpn_flag: Optional[bool] = Field(default=None, alias="fpnFlag")
     bm_unit_name: Optional[str] = Field(default=None, alias="bmUnitName")
     lead_party_id: str = Field(alias="leadPartyId")
@@ -1556,11 +1485,10 @@ class DatasetMetadataLatestRow(DatasetFields, DatasetMixin, BaseModel):
     last_updated: Optional[datetime] = Field(default=None, alias="lastUpdated")
 
 
-class InterconnectorData(InterconnectorMixin, BaseModel):
+class InterconnectorData(InterconnectorFields, InterconnectorMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     interconnector_id: Optional[str] = Field(default=None, alias="interconnectorId")
-    interconnector_name: str = Field(alias="interconnectorName")
     interconnector_bidding_zone: Optional[str] = Field(default=None, alias="interconnectorBiddingZone")
 
 
@@ -1942,22 +1870,22 @@ class WeekAheadTotalLoadPerBiddingZone_ResponseWithMetadata(BaseModel):
     metadata: Optional[ApiResponseSourceMetadata] = None
 
 
-class RestorationZoneDemandForecastDatasetRow(PublishTimeFields, DatasetFields, SettlementDateMixin, DatasetMixin, PublishTimeMixin, BaseModel):
+class RestorationZoneDemandForecastDatasetRow(DatasetFields, PublishTimeFields, SettlementDateMixin, DatasetMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     submission_date_time: Optional[datetime] = Field(default=None, alias="submissionDateTime", examples=["2025-01-01T07:01:07"])
     settlement_date: date = Field(alias="settlementDate", examples=["2025-01-02"])
-    region: Optional[str] = Field(default=None, examples=["North Scotland"])
+    region: Optional[str] = None
     gsp_group_id: str = Field(alias="gspGroupId", examples=["_A"])
     forecast_demand60: Optional[int] = Field(default=None, alias="forecastDemand60", examples=[1234])
     forecast_demand100: Optional[int] = Field(default=None, alias="forecastDemand100", examples=[12345])
 
 
-class RestorationZoneDemandRestoredDatasetRow(PublishTimeFields, DatasetFields, DatasetMixin, PublishTimeMixin, BaseModel):
+class RestorationZoneDemandRestoredDatasetRow(DatasetFields, PublishTimeFields, DatasetMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     submission_date_time: Optional[datetime] = Field(default=None, alias="submissionDateTime", examples=["2025-01-01T07:01:07"])
-    region: Optional[str] = Field(default=None, examples=["North Scotland"])
+    region: Optional[str] = None
     gsp_group_id: str = Field(alias="gspGroupId", examples=["_A"])
     restored_demand: Optional[int] = Field(default=None, alias="restoredDemand", examples=[1234])
 
@@ -1977,18 +1905,14 @@ class ActualGenerationBySettlementPeriod(StartTimeFields, BaseModel):
     data: Optional[List[ActualGenerationValue]] = None
 
 
-class ActualGenerationValue(QuantityFields, BusinessTypeMixin, PsrTypeMixin, QuantityMixin, BaseModel):
+class ActualGenerationValue(QuantityFields, PsrTypeFields, BusinessTypeFields, BusinessTypeMixin, PsrTypeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    business_type: BusinesstypeEnum = Field(alias="businessType", examples=["Solar generation"])
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Solar"])
 
 
-class ActualGenerationWindSolar(SettlementFields, PublishTimeFields, StartTimeFields, QuantityFields, BusinessTypeMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class ActualGenerationWindSolar(SettlementFields, PublishTimeFields, StartTimeFields, QuantityFields, PsrTypeFields, BusinessTypeFields, BusinessTypeMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    business_type: BusinesstypeEnum = Field(alias="businessType", examples=["Solar generation"])
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Solar"])
 
 
 class ActualTotalLoadPerBiddingZone(SettlementFields, PublishTimeFields, StartTimeFields, QuantityFields, PublishTimeMixin, QuantityMixin, BaseModel):
@@ -1996,124 +1920,106 @@ class ActualTotalLoadPerBiddingZone(SettlementFields, PublishTimeFields, StartTi
 
 
 
-class AgptSummaryData(PsrTypeMixin, BaseModel):
+class AgptSummaryData(PsrTypeFields, PsrTypeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    psr_type: PsrtypeEnum = Field(alias="psrType")
     half_hour_usage: Optional[float] = Field(default=None, alias="halfHourUsage")
     half_hour_percentage: Optional[float] = Field(default=None, alias="halfHourPercentage")
     twenty_four_hour_usage: Optional[float] = Field(default=None, alias="twentyFourHourUsage")
     twenty_four_hour_percentage: Optional[float] = Field(default=None, alias="twentyFourHourPercentage")
 
 
-class AbucDatasetRow(DocumentFields, PublishTimeFields, DatasetFields, QuantityFields, SettlementDateMixin, BusinessTypeMixin, DatasetMixin, FlowDirectionMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class AbucDatasetRow(DocumentFields, DatasetFields, PublishTimeFields, QuantityFields, PsrTypeFields, BusinessTypeFields, FlowDirectionFields, SettlementDateMixin, BusinessTypeMixin, DatasetMixin, FlowDirectionMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    business_type: BusinesstypeEnum = Field(alias="businessType", examples=["Replacement reserve"])
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Generation"])
     market_agreement_type: MarketagreementtypeEnum = Field(alias="marketAgreementType", examples=["Daily"])
-    flow_direction: FlowdirectionEnum = Field(alias="flowDirection", examples=["Up"])
     settlement_date: date = Field(alias="settlementDate", examples=["2023-08-23"])
 
 
-class ActualAggregatedGenerationPerTypeDatasetRow(SettlementFields, DocumentFields, PublishTimeFields, StartTimeFields, DatasetFields, QuantityFields, BusinessTypeMixin, DatasetMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class ActualAggregatedGenerationPerTypeDatasetRow(SettlementFields, DocumentFields, DatasetFields, PublishTimeFields, StartTimeFields, QuantityFields, PsrTypeFields, BusinessTypeFields, BusinessTypeMixin, DatasetMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    business_type: BusinesstypeEnum = Field(alias="businessType", examples=["Solar generation"])
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Solar"])
 
 
-class ActualGenerationOutputPerGenerationUnitDatasetResponse(SettlementFields, DatasetFields, QuantityFields, BmUnitMixin, DatasetMixin, PsrTypeMixin, QuantityMixin, BaseModel):
+class ActualGenerationOutputPerGenerationUnitDatasetResponse(SettlementFields, DatasetFields, QuantityFields, PsrTypeFields, BmUnitMixin, DatasetMixin, PsrTypeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Generation"])
     bm_unit: str = Field(alias="bmUnit", examples=["T_CNQPS-1"])
     national_grid_bm_unit_id: str = Field(alias="nationalGridBmUnitId", examples=["CNQPS-1"])
     half_hour_end_time: datetime = Field(alias="halfHourEndTime", examples=["2022-08-12T04:00:00Z"])
 
 
-class ActualGenerationWindSolarDatasetRow(SettlementFields, DocumentFields, PublishTimeFields, StartTimeFields, DatasetFields, QuantityFields, BusinessTypeMixin, DatasetMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
-    model_config = ConfigDict(extra='allow', populate_by_name=True)
-
-    business_type: BusinesstypeEnum = Field(alias="businessType", examples=["Solar generation"])
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Solar"])
-
-
-class ActualTotalLoadPerBiddingZoneDatasetRow(SettlementFields, DocumentFields, PublishTimeFields, StartTimeFields, DatasetFields, QuantityFields, DatasetMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class ActualGenerationWindSolarDatasetRow(SettlementFields, DocumentFields, DatasetFields, PublishTimeFields, StartTimeFields, QuantityFields, PsrTypeFields, BusinessTypeFields, BusinessTypeMixin, DatasetMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class AobeDatasetRow(SettlementFields, DocumentFields, PublishTimeFields, StartTimeFields, DatasetFields, QuantityFields, DatasetMixin, FlowDirectionMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class ActualTotalLoadPerBiddingZoneDatasetRow(SettlementFields, DocumentFields, DatasetFields, PublishTimeFields, StartTimeFields, QuantityFields, DatasetMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+    model_config = ConfigDict(extra='allow', populate_by_name=True)
+
+
+
+class AobeDatasetRow(SettlementFields, DocumentFields, DatasetFields, PublishTimeFields, StartTimeFields, QuantityFields, FlowDirectionFields, DatasetMixin, FlowDirectionMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     time_series_id: str = Field(alias="timeSeriesId", examples=["NGET-EMFIP-AOBE-36758603"])
-    flow_direction: FlowdirectionEnum = Field(alias="flowDirection", examples=["Up"])
     secondary_quantity: Optional[float] = Field(default=None, alias="secondaryQuantity", examples=[45.831])
 
 
-class BebDatasetRow(SettlementFields, DocumentFields, PublishTimeFields, StartTimeFields, DatasetFields, QuantityFields, DatasetMixin, FlowDirectionMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class BebDatasetRow(SettlementFields, DocumentFields, DatasetFields, PublishTimeFields, StartTimeFields, QuantityFields, FlowDirectionFields, DatasetMixin, FlowDirectionMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     bid_id: str = Field(alias="bidId", examples=["NGET-EMFIP-BEB-TS-36758603"])
-    flow_direction: FlowdirectionEnum = Field(alias="flowDirection", examples=["Up"])
     energy_price: float = Field(alias="energyPrice", examples=[150])
 
 
-class CbsDatasetRow(SettlementFields, TimeRangeFields, DocumentFields, PublishTimeFields, DatasetFields, QuantityFields, DatasetMixin, FlowDirectionMixin, PublishTimeMixin, QuantityMixin, BaseModel):
-    model_config = ConfigDict(extra='allow', populate_by_name=True)
-
-    flow_direction: FlowdirectionEnum = Field(alias="flowDirection", examples=["Up"])
-
-
-class CostsOfCongestionManagementDatasetRow(DocumentFields, PublishTimeFields, DatasetFields, YearFields, BusinessTypeMixin, DatasetMixin, YearMixin, MonthMixin, PublishTimeMixin, BaseModel):
-    model_config = ConfigDict(extra='allow', populate_by_name=True)
-
-    business_type: BusinesstypeEnum = Field(alias="businessType", examples=["Congestion costs"])
-    month: Optional[str] = Field(default=None, examples=["OCT"])
-    amount: float = Field(examples=[1.08])
-
-
-class DayAheadAggregatedGenerationDatasetRow(SettlementFields, DocumentFields, PublishTimeFields, StartTimeFields, DatasetFields, QuantityFields, DatasetMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class CbsDatasetRow(SettlementFields, TimeRangeFields, DocumentFields, DatasetFields, PublishTimeFields, QuantityFields, FlowDirectionFields, DatasetMixin, FlowDirectionMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class DayAheadGenerationForWindAndSolarDatasetRow(SettlementFields, DocumentFields, PublishTimeFields, StartTimeFields, DatasetFields, QuantityFields, BusinessTypeMixin, DatasetMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class CostsOfCongestionManagementDatasetRow(DocumentFields, DatasetFields, PublishTimeFields, YearFields, BusinessTypeFields, BusinessTypeMixin, DatasetMixin, YearMixin, MonthMixin, PublishTimeMixin, BaseModel):
+    model_config = ConfigDict(extra='allow', populate_by_name=True)
+
+    month: Optional[str] = None
+    amount: float
+
+
+class DayAheadAggregatedGenerationDatasetRow(SettlementFields, DocumentFields, DatasetFields, PublishTimeFields, StartTimeFields, QuantityFields, DatasetMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+    model_config = ConfigDict(extra='allow', populate_by_name=True)
+
+
+
+class DayAheadGenerationForWindAndSolarDatasetRow(SettlementFields, DocumentFields, DatasetFields, PublishTimeFields, StartTimeFields, QuantityFields, PsrTypeFields, BusinessTypeFields, BusinessTypeMixin, DatasetMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     process_type: ProcesstypeEnum = Field(alias="processType", examples=["Intraday process"])
-    business_type: BusinesstypeEnum = Field(alias="businessType", examples=["Wind generation"])
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Wind Offshore"])
 
 
-class DayAheadTotalLoadPerBiddingZoneDatasetRow(SettlementFields, DocumentFields, PublishTimeFields, StartTimeFields, DatasetFields, QuantityFields, DatasetMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class DayAheadTotalLoadPerBiddingZoneDatasetRow(SettlementFields, DocumentFields, DatasetFields, PublishTimeFields, StartTimeFields, QuantityFields, DatasetMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
 
 
-class FeibDatasetRow(DocumentFields, PublishTimeFields, DatasetFields, YearFields, DatasetMixin, YearMixin, MonthMixin, PublishTimeMixin, BaseModel):
+class FeibDatasetRow(DocumentFields, DatasetFields, PublishTimeFields, YearFields, DatasetMixin, YearMixin, MonthMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    status: Optional[str] = Field(default=None, examples=["Intermediate"])
-    month: Optional[str] = Field(default=None, examples=["JUL"])
-    amount: float = Field(examples=[77112420])
+    status: Optional[str] = None
+    month: Optional[str] = None
+    amount: float
     price_direction: Optional[str] = Field(default=None, alias="priceDirection", examples=["Expenditure"])
 
 
-class IgcaDatasetRow(DocumentFields, PublishTimeFields, DatasetFields, QuantityFields, YearFields, BusinessTypeMixin, DatasetMixin, YearMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class IgcaDatasetRow(DocumentFields, DatasetFields, PublishTimeFields, QuantityFields, YearFields, PsrTypeFields, BusinessTypeFields, BusinessTypeMixin, DatasetMixin, YearMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    business_type: BusinesstypeEnum = Field(alias="businessType", examples=["Installed generation"])
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Hydro Pumped Storage"])
 
 
-class IgcpuDatasetRow(PublishTimeFields, DatasetFields, BmUnitMixin, DatasetMixin, PsrTypeMixin, PublishTimeMixin, BaseModel):
+class IgcpuDatasetRow(DatasetFields, PublishTimeFields, PsrTypeFields, BmUnitMixin, DatasetMixin, PsrTypeMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     document_id: str = Field(alias="documentId", examples=["NGET-EMFIP-CONF-00688811"])
     effective_from: Optional[date] = Field(default=None, alias="effectiveFrom", examples=["2023-08-07"])
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Other"])
     registered_resource_eic_code: Optional[str] = Field(default=None, alias="registeredResourceEicCode", examples=["48WVPI-TRAD-BMUI"])
     registered_resource_name: Optional[str] = Field(default=None, alias="registeredResourceName", examples=["DBAWO-1"])
     bm_unit: str = Field(alias="bmUnit", examples=["T_DBAWO-1"])
@@ -2121,56 +2027,45 @@ class IgcpuDatasetRow(PublishTimeFields, DatasetFields, BmUnitMixin, DatasetMixi
     installed_capacity: Optional[float] = Field(default=None, alias="installedCapacity", examples=[1928.2])
 
 
-class MonthAheadTotalLoadPerBiddingZoneDatasetRow(DocumentFields, PublishTimeFields, DatasetFields, DatasetMixin, PublishTimeMixin, BaseModel):
+class MonthAheadTotalLoadPerBiddingZoneDatasetRow(DocumentFields, CapacityFields, DatasetFields, PublishTimeFields, DatasetMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     forecast_week_commencing_date: Optional[date] = Field(default=None, alias="forecastWeekCommencingDate", examples=["2023-05-29"])
     forecast_year: int = Field(alias="forecastYear", examples=[2023])
     forecast_month: Optional[str] = Field(default=None, alias="forecastMonth", examples=["JUN"])
-    minimum_possible: float = Field(alias="minimumPossible", examples=[18034])
-    maximum_available: float = Field(alias="maximumAvailable", examples=[35011])
 
 
-class PbcDatasetRow(SettlementFields, DocumentFields, PublishTimeFields, StartTimeFields, DatasetFields, QuantityFields, DatasetMixin, FlowDirectionMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class PbcDatasetRow(SettlementFields, DocumentFields, DatasetFields, PublishTimeFields, StartTimeFields, QuantityFields, PsrTypeFields, FlowDirectionFields, DatasetMixin, FlowDirectionMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     time_series_id: str = Field(alias="timeSeriesId", examples=["NGET-EMFIP-PBC-TS-36758603"])
-    flow_direction: FlowdirectionEnum = Field(alias="flowDirection", examples=["Up"])
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Generation"])
     procurement_price: float = Field(alias="procurementPrice", examples=[150])
 
 
-class PpbrDatasetRow(DocumentFields, PublishTimeFields, DatasetFields, SettlementDateMixin, DatasetMixin, FlowDirectionMixin, PsrTypeMixin, PublishTimeMixin, BaseModel):
+class PpbrDatasetRow(DocumentFields, DatasetFields, PublishTimeFields, PsrTypeFields, FlowDirectionFields, SettlementDateMixin, DatasetMixin, FlowDirectionMixin, PsrTypeMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Generation"])
     market_agreement_type: MarketagreementtypeEnum = Field(alias="marketAgreementType", examples=["Daily"])
-    flow_direction: FlowdirectionEnum = Field(alias="flowDirection", examples=["Up"])
     settlement_date: date = Field(alias="settlementDate", examples=["2023-08-23"])
-    amount: float = Field(examples=[1.2])
+    amount: float
 
 
-class WeekAheadTotalLoadPerBiddingZoneDatasetRow(DocumentFields, PublishTimeFields, DatasetFields, ForecastDateFields, DatasetMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
+class WeekAheadTotalLoadPerBiddingZoneDatasetRow(DocumentFields, CapacityFields, DatasetFields, PublishTimeFields, ForecastDateFields, DatasetMixin, ForecastDateMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     forecast_week: int = Field(alias="forecastWeek", examples=[30])
-    minimum_possible: float = Field(alias="minimumPossible", examples=[18034])
-    maximum_available: float = Field(alias="maximumAvailable", examples=[35011])
 
 
-class YearAheadForecastMarginDatasetRow(DocumentFields, PublishTimeFields, DatasetFields, QuantityFields, YearFields, BusinessTypeMixin, DatasetMixin, YearMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class YearAheadForecastMarginDatasetRow(DocumentFields, DatasetFields, PublishTimeFields, QuantityFields, YearFields, BusinessTypeFields, BusinessTypeMixin, DatasetMixin, YearMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    business_type: BusinesstypeEnum = Field(alias="businessType", examples=["Positive forecast margin"])
 
 
-class YearAheadTotalLoadPerBiddingZoneDatasetRow(DocumentFields, PublishTimeFields, DatasetFields, DatasetMixin, PublishTimeMixin, BaseModel):
+class YearAheadTotalLoadPerBiddingZoneDatasetRow(DocumentFields, CapacityFields, DatasetFields, PublishTimeFields, DatasetMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     forecast_year: int = Field(alias="forecastYear", examples=[2023])
     forecast_week: int = Field(alias="forecastWeek", examples=[30])
-    minimum_possible: float = Field(alias="minimumPossible", examples=[18034])
-    maximum_available: float = Field(alias="maximumAvailable", examples=[35011])
 
 
 class DayAheadAggregatedGeneration(SettlementFields, PublishTimeFields, StartTimeFields, QuantityFields, PublishTimeMixin, QuantityMixin, BaseModel):
@@ -2178,12 +2073,10 @@ class DayAheadAggregatedGeneration(SettlementFields, PublishTimeFields, StartTim
 
 
 
-class DayAheadGenerationForWindAndSolar(SettlementFields, PublishTimeFields, StartTimeFields, QuantityFields, BusinessTypeMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
+class DayAheadGenerationForWindAndSolar(SettlementFields, PublishTimeFields, StartTimeFields, QuantityFields, PsrTypeFields, BusinessTypeFields, BusinessTypeMixin, PsrTypeMixin, PublishTimeMixin, QuantityMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     process_type: ProcesstypeEnum = Field(alias="processType", examples=["Intraday process"])
-    business_type: BusinesstypeEnum = Field(alias="businessType", examples=["Wind generation"])
-    psr_type: PsrtypeEnum = Field(alias="psrType", examples=["Wind Offshore"])
 
 
 class DayAheadTotalLoadPerBiddingZone(SettlementFields, PublishTimeFields, StartTimeFields, QuantityFields, PublishTimeMixin, QuantityMixin, BaseModel):
@@ -2191,32 +2084,26 @@ class DayAheadTotalLoadPerBiddingZone(SettlementFields, PublishTimeFields, Start
 
 
 
-class OutageProfileData(StartTimeFields, BaseModel):
+class OutageProfileData(StartEndTimeFields, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    end_time: Optional[datetime] = Field(default=None, alias="endTime")
     capacity: Optional[float] = None
 
 
-class RemitMessage(PublishTimeFields, DatasetFields, AffectedUnitMixin, AssetMixin, CapacityMixin, DatasetMixin, EventMixin, EventTimeMixin, FuelTypeMixin, MessageMixin, MridMixin, ParticipantMixin, BiddingZoneMixin, PublishTimeMixin, RevisionMixin, BaseModel):
+class RemitMessage(DatasetFields, PublishTimeFields, FuelTypeFields, RevisionNumberFields, AssetFields, MessageTypeFields, BiddingZoneFields, AffectedUnitMixin, AssetMixin, CapacityMixin, DatasetMixin, EventMixin, EventTimeMixin, FuelTypeMixin, MessageMixin, MridMixin, ParticipantMixin, BiddingZoneMixin, PublishTimeMixin, RevisionMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    mrid: str = Field(examples=["11XINNOGY------2-NGET-RMT-00084421"])
-    revision_number: int = Field(alias="revisionNumber", examples=[25])
+    mrid: str
     created_time: datetime = Field(alias="createdTime", examples=["2023-01-31T17:39:15Z"])
-    message_type: MessagetypeEnum = Field(alias="messageType", examples=["UnavailabilitiesOfElectricityFacilities"])
     message_heading: str = Field(alias="messageHeading", examples=["Planned Unavailability of Generation Unit"])
     event_type: EventtypeEnum = Field(alias="eventType", examples=["Production unavailability"])
     unavailability_type: UnavailabilitytypeEnum = Field(alias="unavailabilityType", examples=["Planned"])
     participant_id: str = Field(alias="participantId", examples=["11XINNOGY------2"])
     registration_code: Optional[str] = Field(default=None, alias="registrationCode", examples=["11XINNOGY------2"])
-    asset_id: str = Field(alias="assetId", examples=["T_DIDCB5"])
     asset_type: AssettypeEnum = Field(alias="assetType", examples=["Production"])
     affected_unit: str = Field(alias="affectedUnit", examples=["DIDCB5"])
     affected_unit_eic: Optional[str] = Field(default=None, alias="affectedUnitEIC", examples=["48W000000DIDCB5C"])
     affected_area: str = Field(alias="affectedArea", examples=["N"])
-    bidding_zone: str = Field(alias="biddingZone", examples=["10YGB----------A"])
-    fuel_type: FueltypeEnum = Field(alias="fuelType", examples=["Fossil Gas"])
     normal_capacity: float = Field(alias="normalCapacity", examples=[780])
     available_capacity: float = Field(alias="availableCapacity", examples=[320])
     unavailable_capacity: float = Field(alias="unavailableCapacity", examples=[361])
@@ -2224,40 +2111,33 @@ class RemitMessage(PublishTimeFields, DatasetFields, AffectedUnitMixin, AssetMix
     event_start_time: datetime = Field(alias="eventStartTime", examples=["2022-08-23T06:59:00Z"])
     event_end_time: datetime = Field(alias="eventEndTime", examples=["2022-08-25T05:20:30Z"])
     duration_uncertainty: Optional[str] = Field(default=None, alias="durationUncertainty", examples=["+- 1 day"])
-    cause: str = Field(examples=["Other"])
+    cause: str
     related_information: Optional[str] = Field(default=None, alias="relatedInformation", examples=["Status changed to Completed"])
     outage_profile: Optional[List[OutageProfileData]] = Field(default=None, alias="outageProfile", examples=[[{'startTime': '2023-02-03T21:06:31.000Z', 'endTime': '2023-02-03T21:10:00.000Z', 'capacity': 436}]])
 
 
-class RemitMessageIdentifierWithUrl(PublishTimeFields, MridMixin, PublishTimeMixin, RevisionMixin, BaseModel):
+class RemitMessageIdentifierWithUrl(PublishTimeFields, RevisionNumberFields, IdFields, MridMixin, PublishTimeMixin, RevisionMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    id: int = Field(examples=[24])
-    mrid: str = Field(examples=["11XINNOGY------2-NGET-RMT-00084421"])
-    revision_number: int = Field(alias="revisionNumber", examples=[2])
+    mrid: str
     created_time: datetime = Field(alias="createdTime", examples=["2023-01-31T17:39:15Z"])
-    url: Optional[str] = Field(default=None, examples=["https://data.elexon.co.uk/bmrs/api/v1/remit/24"])
+    url: Optional[str] = None
 
 
-class RemitMessageWithId(PublishTimeFields, DatasetFields, AffectedUnitMixin, AssetMixin, CapacityMixin, DatasetMixin, EventMixin, EventTimeMixin, FuelTypeMixin, MessageMixin, MridMixin, ParticipantMixin, BiddingZoneMixin, PublishTimeMixin, RevisionMixin, BaseModel):
+class RemitMessageWithId(DatasetFields, PublishTimeFields, FuelTypeFields, RevisionNumberFields, AssetFields, MessageTypeFields, BiddingZoneFields, IdFields, AffectedUnitMixin, AssetMixin, CapacityMixin, DatasetMixin, EventMixin, EventTimeMixin, FuelTypeMixin, MessageMixin, MridMixin, ParticipantMixin, BiddingZoneMixin, PublishTimeMixin, RevisionMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    mrid: str = Field(examples=["11XINNOGY------2-NGET-RMT-00084421"])
-    revision_number: int = Field(alias="revisionNumber", examples=[25])
+    mrid: str
     created_time: datetime = Field(alias="createdTime", examples=["2023-01-31T17:39:15Z"])
-    message_type: MessagetypeEnum = Field(alias="messageType", examples=["UnavailabilitiesOfElectricityFacilities"])
     message_heading: str = Field(alias="messageHeading", examples=["Planned Unavailability of Generation Unit"])
     event_type: EventtypeEnum = Field(alias="eventType", examples=["Production unavailability"])
     unavailability_type: UnavailabilitytypeEnum = Field(alias="unavailabilityType", examples=["Planned"])
     participant_id: str = Field(alias="participantId", examples=["11XINNOGY------2"])
     registration_code: Optional[str] = Field(default=None, alias="registrationCode", examples=["11XINNOGY------2"])
-    asset_id: str = Field(alias="assetId", examples=["T_DIDCB5"])
     asset_type: AssettypeEnum = Field(alias="assetType", examples=["Production"])
     affected_unit: str = Field(alias="affectedUnit", examples=["DIDCB5"])
     affected_unit_eic: Optional[str] = Field(default=None, alias="affectedUnitEIC", examples=["48W000000DIDCB5C"])
     affected_area: str = Field(alias="affectedArea", examples=["N"])
-    bidding_zone: str = Field(alias="biddingZone", examples=["10YGB----------A"])
-    fuel_type: FueltypeEnum = Field(alias="fuelType", examples=["Fossil Gas"])
     normal_capacity: float = Field(alias="normalCapacity", examples=[780])
     available_capacity: float = Field(alias="availableCapacity", examples=[320])
     unavailable_capacity: float = Field(alias="unavailableCapacity", examples=[361])
@@ -2265,25 +2145,20 @@ class RemitMessageWithId(PublishTimeFields, DatasetFields, AffectedUnitMixin, As
     event_start_time: datetime = Field(alias="eventStartTime", examples=["2022-08-23T06:59:00Z"])
     event_end_time: datetime = Field(alias="eventEndTime", examples=["2022-08-25T05:20:30Z"])
     duration_uncertainty: Optional[str] = Field(default=None, alias="durationUncertainty", examples=["+- 1 day"])
-    cause: str = Field(examples=["Other"])
+    cause: str
     related_information: Optional[str] = Field(default=None, alias="relatedInformation", examples=["Status changed to Completed"])
     outage_profile: Optional[List[OutageProfileData]] = Field(default=None, alias="outageProfile", examples=[[{'startTime': '2023-02-03T21:06:31.000Z', 'endTime': '2023-02-03T21:10:00.000Z', 'capacity': 436}]])
-    id: int = Field(examples=[1])
 
 
-class WeekAheadTotalLoadPerBiddingZone(PublishTimeFields, ForecastDateFields, ForecastDateMixin, PublishTimeMixin, BaseModel):
+class WeekAheadTotalLoadPerBiddingZone(CapacityFields, PublishTimeFields, ForecastDateFields, ForecastDateMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
     forecast_week: int = Field(alias="forecastWeek", examples=[30])
-    minimum_possible: float = Field(alias="minimumPossible", examples=[18034])
-    maximum_available: float = Field(alias="maximumAvailable", examples=[35011])
 
 
-class DayAheadDemandForecastRow(SettlementFields, PublishTimeFields, StartTimeFields, BoundaryFields, BoundaryMixin, PublishTimeMixin, BaseModel):
+class DayAheadDemandForecastRow(SettlementFields, PublishTimeFields, StartTimeFields, BoundaryFields, TransmissionDemandFields, NationalDemandFields, BoundaryMixin, PublishTimeMixin, BaseModel):
     model_config = ConfigDict(extra='allow', populate_by_name=True)
 
-    transmission_system_demand: int = Field(alias="transmissionSystemDemand")
-    national_demand: int = Field(alias="nationalDemand")
 
 
 class WindGenerationForecastRow(SettlementFields, PublishTimeFields, StartTimeFields, GenerationFields, GenerationMixin, PublishTimeMixin, BaseModel):

@@ -59,30 +59,59 @@ class PydanticModelGenerator:
         self.uses_validators = False
         self.uses_field_mixins = False
         
-        # Map field combinations to field mixin classes
+        # Map field combinations to field mixin classes (comprehensive set)
         self.field_mixin_map = {
             frozenset(['settlementDate', 'settlementPeriod']): 'SettlementFields',
             frozenset(['timeFrom', 'timeTo']): 'TimeRangeFields',
-            frozenset(['levelFrom', 'levelTo']): 'LevelRangeFields',
+            frozenset(['startTime', 'endTime']): 'StartEndTimeFields',
+            frozenset(['levelFrom', 'levelTo']): 'LevelFields',
             frozenset(['bmUnit', 'nationalGridBmUnit']): 'BmUnitFields',
             frozenset(['documentId', 'documentRevisionNumber']): 'DocumentFields',
+            frozenset(['settlementPeriodFrom', 'settlementPeriodTo']): 'SettlementPeriodRangeFields',
+            frozenset(['acceptanceNumber', 'acceptanceTime']): 'AcceptanceFields',
+            frozenset(['bidPrice', 'offerPrice']): 'BidOfferPriceFields',
+            frozenset(['bidVolume', 'offerVolume']): 'BidOfferVolumeFields',
+            frozenset(['bidPrice', 'bidVolume', 'offerPrice', 'offerVolume']): 'BidOfferFields',
+            frozenset(['minimumPossible', 'maximumAvailable']): 'CapacityFields',
         }
         
-        # Map single fields to field mixin classes
+        # Map single fields to field mixin classes (comprehensive set from schema analysis)
         self.single_field_mixin_map = {
+            'dataset': 'DatasetFields',
             'publishTime': 'PublishTimeFields',
             'startTime': 'StartTimeFields',
-            'dataset': 'DatasetFields',
             'quantity': 'QuantityFields',
-            'price': 'PriceFields',
-            'volume': 'VolumeFields',
-            'demand': 'DemandFields',
-            'generation': 'GenerationFields',
             'year': 'YearFields',
-            'week': 'WeekFields',
             'forecastDate': 'ForecastDateFields',
+            'demand': 'DemandFields',
+            'psrType': 'PsrTypeFields',
+            'fuelType': 'FuelTypeFields',
             'boundary': 'BoundaryFields',
+            'businessType': 'BusinessTypeFields',
+            'generation': 'GenerationFields',
+            'volume': 'VolumeFields',
+            'outputUsable': 'OutputUsableFields',
+            'revisionNumber': 'RevisionNumberFields',
+            'week': 'WeekFields',
+            'assetId': 'AssetFields',
             'createdDateTime': 'CreatedDateTimeFields',
+            'flowDirection': 'FlowDirectionFields',
+            'messageType': 'MessageTypeFields',
+            'biddingZone': 'BiddingZoneFields',
+            'id': 'IdFields',
+            'transmissionSystemDemand': 'TransmissionDemandFields',
+            'margin': 'MarginFields',
+            'soFlag': 'SoFlagFields',
+            'storFlag': 'StorFlagFields',
+            'bmUnitType': 'BmUnitTypeFields',
+            'leadPartyName': 'LeadPartyFields',
+            'nationalDemand': 'NationalDemandFields',
+            'surplus': 'SurplusFields',
+            'systemZone': 'SystemZoneFields',
+            'interconnectorName': 'InterconnectorFields',
+            'amendmentFlag': 'AmendmentFlagFields',
+            'activeFlag': 'ActiveFlagFields',
+            'time': 'TimeFields',
         }
         
         # Map field names to their enum types
@@ -602,7 +631,7 @@ class PydanticModelGenerator:
 
         # Detect which mixins to apply and which fields to skip
         mixins, fields_to_skip = self._detect_mixins(properties)
-        
+
         lines = []
         # Build class definition with mixins
         if mixins:
@@ -648,15 +677,15 @@ class PydanticModelGenerator:
                 # Always add alias if field name changed (for snake_case conversion)
                 if safe_field_name != field_name:
                     field_params.append(f'alias="{field_name}"')
-                
-                if field_description:
-                    field_params.append(f'description="{field_description}"')
-                if example is not None:
-                    if isinstance(example, str):
-                        field_params.append(f'examples=["{example}"]')
-                    else:
-                        field_params.append(f'examples=[{example}]')
-                
+                    
+                    if field_description:
+                        field_params.append(f'description="{field_description}"')
+                    if example is not None:
+                        if isinstance(example, str):
+                            field_params.append(f'examples=["{example}"]')
+                        else:
+                            field_params.append(f'examples=[{example}]')
+                    
                 # Generate field line
                 if field_params:
                     if not is_required:
