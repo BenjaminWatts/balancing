@@ -24,7 +24,7 @@ class HealthCheckResponse(BaseModel):
     """Response from /health endpoint."""
     model_config = ConfigDict(extra='allow')
     
-    status: str
+    status: int  # Status code (e.g., 2 for healthy)
     total_duration: Optional[str] = Field(alias="totalDuration", default=None)
     entries: Optional[Dict[str, Any]] = None
 
