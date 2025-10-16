@@ -59,7 +59,7 @@ If provided, the time part of Until will be ignored., optional
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DynamicData_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["bmUnit"] = bmUnit
@@ -116,7 +116,7 @@ The settlement period must be specified as a date and settlement period. The dat
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DynamicData_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -172,7 +172,7 @@ If provided, the time part of Until will be ignored., optional
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RateData_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["bmUnit"] = bmUnit
@@ -227,7 +227,7 @@ By default, all of the relevant datasets are returned: RDRE, RURE, RDRI, RURI.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RateData_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -307,7 +307,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            PhysicalData_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["bmUnit"] = bmUnit
@@ -361,7 +361,7 @@ The settlement period to query must be specified as a date and settlement period
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            PhysicalData_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["dataset"] = dataset
@@ -434,7 +434,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DisaggregatedBalancingServicesAdjustmentSummaryResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -478,7 +478,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DisaggregatedBalancingServicesAdjustmentDetailsResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -549,7 +549,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            NetBalancingServicesAdjustmentResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -622,7 +622,7 @@ Before parameter must be specified if this is specified., optional
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            NetBalancingServicesAdjustmentResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["count"] = count
@@ -697,7 +697,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            BidOfferResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["bmUnit"] = bmUnit
@@ -744,7 +744,7 @@ The settlement period to query must be specified as a date and settlement period
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            BidOfferResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -816,7 +816,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            BidOfferAcceptancesResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["bmUnit"] = bmUnit
@@ -863,7 +863,7 @@ The settlement period must be specified as a date and settlement period. The dat
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            BidOfferAcceptancesResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -898,7 +898,7 @@ The settlement period must be specified as a date and settlement period. The dat
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            BidOfferAcceptancesResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -940,7 +940,7 @@ If no time window is chosen, the default output will be the latest published dat
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            NonBmStorData_DatasetResponse: Typed response object
         """
         params = {}
         if from_ is not None:
@@ -986,7 +986,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             to_: The end of the data publish time window., optional
 
         Returns:
-            API response data
+            List[NonBmStorData]: List of NonBmStorData objects
         """
         params = {}
         if from_ is not None:
@@ -1030,7 +1030,7 @@ The settlement period to query must be specified as a date and settlement period
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            PhysicalNotificationData_DatasetResponse: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -1100,7 +1100,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[PhysicalNotificationData]: List of PhysicalNotificationData objects
         """
         params = {}
         params["from"] = from_
@@ -1146,7 +1146,7 @@ The settlement period to query must be specified as a date and settlement period
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            PhysicalNotificationData_DatasetResponse: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -1214,7 +1214,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[PhysicalNotificationData]: List of PhysicalNotificationData objects
         """
         params = {}
         params["from"] = from_
@@ -1292,7 +1292,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DeliveryLimitMaxData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -1371,7 +1371,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[DeliveryLimitMaxData]: List of DeliveryLimitMaxData objects
         """
         params = {}
         params["from"] = from_
@@ -1449,7 +1449,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DeliveryLimitMaxData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -1528,7 +1528,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[DeliveryLimitMaxData]: List of DeliveryLimitMaxData objects
         """
         params = {}
         params["from"] = from_
@@ -1608,7 +1608,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            BalancingServicesVolumeData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -1690,7 +1690,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[BalancingServicesVolumeData]: List of BalancingServicesVolumeData objects
         """
         params = {}
         params["from"] = from_
@@ -1765,7 +1765,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            NetBalancingServicesAdjustmentData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -1840,7 +1840,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             settlementPeriodTo: The "to" settlement period for the filter. This should be an integer from 1-50 inclusive., optional
 
         Returns:
-            API response data
+            List[NetBalancingServicesAdjustmentData]: List of NetBalancingServicesAdjustmentData objects
         """
         params = {}
         params["from"] = from_
@@ -1913,7 +1913,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DisaggregatedBalancingServicesAdjustmentData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -1988,7 +1988,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             settlementPeriodTo: The "to" settlement period for the filter. This should be an integer from 1-50 inclusive., optional
 
         Returns:
-            API response data
+            List[DisaggregatedBalancingServicesAdjustmentData]: List of DisaggregatedBalancingServicesAdjustmentData objects
         """
         params = {}
         params["from"] = from_
@@ -2061,7 +2061,7 @@ Filtering from a settlement date and period to a settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            BidOfferDatasetResponse_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -2136,7 +2136,7 @@ Filtering from settlement date and period to settlement date and period:
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[BidOfferDatasetResponse]: List of BidOfferDatasetResponse objects
         """
         params = {}
         params["from"] = from_
@@ -2211,7 +2211,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            BidOfferAcceptanceLevelDatasetResponse_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -2286,7 +2286,7 @@ Filtering from settlement date and period to settlement date and period:
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[BidOfferAcceptanceLevelDatasetResponse]: List of BidOfferAcceptanceLevelDatasetResponse objects
         """
         params = {}
         params["from"] = from_
@@ -2370,7 +2370,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            MarketIndexDatasetResponse_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -2456,7 +2456,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             dataProviders: The data providers to query. If no data provider is selected both will be displayed., optional
 
         Returns:
-            API response data
+            List[MarketIndexDatasetResponse]: List of MarketIndexDatasetResponse objects
         """
         params = {}
         params["from"] = from_
@@ -2513,7 +2513,7 @@ Settlement date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AugmentedOutturnData_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -2576,7 +2576,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             fuelType: Fuel Type e.g. NUCLEAR, optional
 
         Returns:
-            API response data
+            List[AugmentedOutturnData]: List of AugmentedOutturnData objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -2637,7 +2637,7 @@ Settlement date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AugmentedOutturnData_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -2700,7 +2700,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             fuelType: Fuel Type e.g. NUCLEAR, optional
 
         Returns:
-            API response data
+            List[AugmentedOutturnData]: List of AugmentedOutturnData objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -2759,7 +2759,7 @@ If no BM unit is supplied all BM units will be returned., optional
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityByBmUnitDaily_DatasetResponse: Typed response object
         """
         params = {}
         if fuelType is not None:
@@ -2816,7 +2816,7 @@ If both are omitted, latest published data is returned., optional
 If no BM unit is supplied all BM units will be returned., optional
 
         Returns:
-            API response data
+            List[AvailabilityByBmUnitDaily]: List of AvailabilityByBmUnitDaily objects
         """
         params = {}
         if fuelType is not None:
@@ -2874,7 +2874,7 @@ If no BM unit is supplied all BM units will be returned., optional
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityByBmUnitWeekly_DatasetResponse: Typed response object
         """
         params = {}
         if fuelType is not None:
@@ -2931,7 +2931,7 @@ If both are omitted, latest published data is returned., optional
 If no BM unit is supplied all BM units will be returned., optional
 
         Returns:
-            API response data
+            List[AvailabilityByBmUnitWeekly]: List of AvailabilityByBmUnitWeekly objects
         """
         params = {}
         if fuelType is not None:
@@ -2984,7 +2984,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityByFuelTypeDaily_DatasetResponse: Typed response object
         """
         params = {}
         if fuelType is not None:
@@ -3048,7 +3048,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityByFuelTypeWeekly_DatasetResponse: Typed response object
         """
         params = {}
         if fuelType is not None:
@@ -3105,7 +3105,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityDaily_DatasetResponse: Typed response object
         """
         params = {}
         if publishDate is not None:
@@ -3157,7 +3157,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityWeekly_DatasetResponse: Typed response object
         """
         params = {}
         if publishDate is not None:
@@ -3204,7 +3204,7 @@ Default output will be the last 31 days. Values are received from 5pm each day.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            TemperatureData_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -3250,7 +3250,7 @@ This API endpoint provides a maximum data output range of 1 day.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicatedGeneration_DatasetResponse: Typed response object
         """
         params = {}
         if boundary is not None:
@@ -3296,7 +3296,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[IndicatedGeneration]: List of IndicatedGeneration objects
         """
         params = {}
         if boundary is not None:
@@ -3342,7 +3342,7 @@ This API endpoint provides a maximum data output range of 1 day.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicatedDemand_DatasetResponse: Typed response object
         """
         params = {}
         if boundary is not None:
@@ -3388,7 +3388,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[IndicatedDemand]: List of IndicatedDemand objects
         """
         params = {}
         if boundary is not None:
@@ -3436,7 +3436,7 @@ This API endpoint provides a maximum data output range of 1 day.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicatedMargin_DatasetResponse: Typed response object
         """
         params = {}
         if boundary is not None:
@@ -3484,7 +3484,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[IndicatedMargin]: List of IndicatedMargin objects
         """
         params = {}
         if boundary is not None:
@@ -3530,7 +3530,7 @@ This API endpoint provides a maximum data output range of 1 day.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicatedImbalance_DatasetResponse: Typed response object
         """
         params = {}
         if boundary is not None:
@@ -3576,7 +3576,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[IndicatedImbalance]: List of IndicatedImbalance objects
         """
         params = {}
         if boundary is not None:
@@ -3623,7 +3623,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastNationalDayAhead_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -3668,7 +3668,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[DemandForecastNationalDayAhead]: List of DemandForecastNationalDayAhead objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -3715,7 +3715,7 @@ This API endpoint provides a maximum data output range of 1 day.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastTransmissionDayAhead_DatasetResponse: Typed response object
         """
         params = {}
         if boundary is not None:
@@ -3764,7 +3764,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[DemandForecastTransmissionDayAhead]: List of DemandForecastTransmissionDayAhead objects
         """
         params = {}
         if boundary is not None:
@@ -3805,7 +3805,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            WindGenerationForecast_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -3846,7 +3846,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[WindGenerationForecast]: List of WindGenerationForecast objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -3886,7 +3886,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandOutturnNational_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -3930,7 +3930,7 @@ This API endpoint has a maximum range of 2 years (731 days).
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndodDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -3970,7 +3970,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[IndodDatasetRow]: List of IndodDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -4008,7 +4008,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandOutturnTransmission_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4054,7 +4054,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastNationalDaily_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4098,7 +4098,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[DemandForecastNationalDaily]: List of DemandForecastNationalDaily objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4141,7 +4141,7 @@ This API endpoint provides a maximum data output range of 92 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastTransmissionDaily_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4184,7 +4184,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[DemandForecastTransmissionDaily]: List of DemandForecastTransmissionDaily objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4228,7 +4228,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastNationalWeekly_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4272,7 +4272,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[DemandForecastNationalWeekly]: List of DemandForecastNationalWeekly objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4316,7 +4316,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastTransmissionWeekly_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4360,7 +4360,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[DemandForecastTransmissionWeekly]: List of DemandForecastTransmissionWeekly objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4401,7 +4401,7 @@ for larger response sizes.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            SystemFrequency_DatasetResponse: Typed response object
         """
         params = {}
         if measurementDateTimeFrom is not None:
@@ -4441,7 +4441,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             measurementDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[SystemFrequency]: List of SystemFrequency objects
         """
         params = {}
         if measurementDateTimeFrom is not None:
@@ -4483,7 +4483,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastSurplusDaily_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4525,7 +4525,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[ForecastSurplusDaily]: List of ForecastSurplusDaily objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4567,7 +4567,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastMarginDaily_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4609,7 +4609,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[ForecastMarginDaily]: List of ForecastMarginDaily objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4651,7 +4651,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastSurplusWeekly_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4693,7 +4693,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[ForecastSurplusWeekly]: List of ForecastSurplusWeekly objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4735,7 +4735,7 @@ Specific publish time filters may be supplied, otherwise this will retrieve the 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastMarginWeekly_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4777,7 +4777,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[ForecastMarginWeekly]: List of ForecastMarginWeekly objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -4811,7 +4811,7 @@ publishTime field on the dataset, or the latest available measurement time.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DatasetMetadataLatestRow_DatasetResponse: Typed response object
         """
         params = {}
         if format is not None:
@@ -4851,7 +4851,7 @@ De-rated margin is a forecast of the excess supply on the system, which has been
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            LossOfLoadProbabilityDeratedMarginData_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -4893,7 +4893,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[LossOfLoadProbabilityDeratedMarginData]: List of LossOfLoadProbabilityDeratedMarginData objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -4930,7 +4930,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            CreditDefaultNoticeDatasetResponse_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -4971,7 +4971,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bscPartyId: , optional
 
         Returns:
-            API response data
+            List[CreditDefaultNoticeDatasetResponse]: List of CreditDefaultNoticeDatasetResponse objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -5008,7 +5008,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            SystemWarningsData_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -5047,7 +5047,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[SystemWarningsData]: List of SystemWarningsData objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -5084,7 +5084,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandControlInstructionDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -5123,7 +5123,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: , optional
 
         Returns:
-            API response data
+            List[DemandControlInstructionDatasetRow]: List of DemandControlInstructionDatasetRow objects
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -5161,7 +5161,7 @@ This API endpoint has a maximum range of 24 hours.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            SoSoPricesDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -5198,7 +5198,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[SoSoPricesDatasetRow]: List of SoSoPricesDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -5237,7 +5237,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            TudmDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -5286,7 +5286,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             tradingUnitType: , optional
 
         Returns:
-            API response data
+            List[TudmDatasetRow]: List of TudmDatasetRow objects
         """
         params = {}
         params["settlementDateFrom"] = settlementDateFrom
@@ -5332,7 +5332,7 @@ This API endpoint supports up to 12 months range per request.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RestorationZoneDemandForecastDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["submissionDateTimeFrom"] = submissionDateTimeFrom
@@ -5376,7 +5376,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             gspGroupId: The GSP Group ID to filter by., optional
 
         Returns:
-            API response data
+            List[RestorationZoneDemandForecastDatasetRow]: List of RestorationZoneDemandForecastDatasetRow objects
         """
         params = {}
         params["submissionDateTimeFrom"] = submissionDateTimeFrom
@@ -5420,7 +5420,7 @@ This API endpoint supports up to 12 months range per request.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RestorationZoneDemandRestoredDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["submissionDateTimeFrom"] = submissionDateTimeFrom
@@ -5464,7 +5464,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             gspGroupId: The GSP Group ID to filter by., optional
 
         Returns:
-            API response data
+            List[RestorationZoneDemandRestoredDatasetRow]: List of RestorationZoneDemandRestoredDatasetRow objects
         """
         params = {}
         params["submissionDateTimeFrom"] = submissionDateTimeFrom
@@ -5508,7 +5508,7 @@ If no date window is chosen, the search will default to results from last 24 hou
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            StablePortageLimitData_DatasetResponse: Typed response object
         """
         params = {}
         if from_ is not None:
@@ -5554,7 +5554,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[StablePortageLimitData]: List of StablePortageLimitData objects
         """
         params = {}
         if from_ is not None:
@@ -5598,7 +5598,7 @@ If no date window is chosen, the search will default to results from last 24 hou
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            StablePortageLimitData_DatasetResponse: Typed response object
         """
         params = {}
         if from_ is not None:
@@ -5644,7 +5644,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[StablePortageLimitData]: List of StablePortageLimitData objects
         """
         params = {}
         if from_ is not None:
@@ -5720,7 +5720,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DeliveryPeriodMinData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -5800,7 +5800,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[DeliveryPeriodMinData]: List of DeliveryPeriodMinData objects
         """
         params = {}
         params["from"] = from_
@@ -5876,7 +5876,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DeliveryPeriodMinData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -5954,7 +5954,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[DeliveryPeriodMinData]: List of DeliveryPeriodMinData objects
         """
         params = {}
         params["from"] = from_
@@ -6031,7 +6031,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DeliveryVolumeMaxData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -6110,7 +6110,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[DeliveryVolumeMaxData]: List of DeliveryVolumeMaxData objects
         """
         params = {}
         params["from"] = from_
@@ -6186,7 +6186,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DeliveryPeriodMaxData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -6264,7 +6264,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[DeliveryPeriodMaxData]: List of DeliveryPeriodMaxData objects
         """
         params = {}
         params["from"] = from_
@@ -6341,7 +6341,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            NoticeData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -6420,7 +6420,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[NoticeData]: List of NoticeData objects
         """
         params = {}
         params["from"] = from_
@@ -6497,7 +6497,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            NoticeData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -6576,7 +6576,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[NoticeData]: List of NoticeData objects
         """
         params = {}
         params["from"] = from_
@@ -6654,7 +6654,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            NoticeData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -6734,7 +6734,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[NoticeData]: List of NoticeData objects
         """
         params = {}
         params["from"] = from_
@@ -6812,7 +6812,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RateData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -6892,7 +6892,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[RateData]: List of RateData objects
         """
         params = {}
         params["from"] = from_
@@ -6970,7 +6970,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RateData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -7050,7 +7050,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[RateData]: List of RateData objects
         """
         params = {}
         params["from"] = from_
@@ -7128,7 +7128,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RateData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -7208,7 +7208,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[RateData]: List of RateData objects
         """
         params = {}
         params["from"] = from_
@@ -7286,7 +7286,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RateData_DatasetResponse: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -7366,7 +7366,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: The BM units to query. Add each unit separately. If no BM unit is selected all BM units will be displayed., optional
 
         Returns:
-            API response data
+            List[RateData]: List of RateData objects
         """
         params = {}
         params["from"] = from_
@@ -7411,7 +7411,7 @@ Only JSON and XML formats are supported for this endpoint.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RemitMessage_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7450,7 +7450,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[RemitMessage]: List of RemitMessage objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7490,7 +7490,7 @@ This API endpoint provides a maximum data output range of 7 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ActualGenerationWindSolarDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7530,7 +7530,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[ActualGenerationWindSolarDatasetRow]: List of ActualGenerationWindSolarDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7567,7 +7567,7 @@ This API endpoint provides a maximum data output range of 7 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DayAheadGenerationForWindAndSolarDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7604,7 +7604,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[DayAheadGenerationForWindAndSolarDatasetRow]: List of DayAheadGenerationForWindAndSolarDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7641,7 +7641,7 @@ This endpoint filters by publishTime and provides a maximum data output range of
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ActualAggregatedGenerationPerTypeDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7678,7 +7678,7 @@ This endpoint filters by publishTime and has an optimised JSON payload aimed at 
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[ActualAggregatedGenerationPerTypeDatasetRow]: List of ActualAggregatedGenerationPerTypeDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7721,7 +7721,7 @@ The generation output returned by this endpoint is the metered volume and not th
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ActualGenerationOutputPerGenerationUnitDatasetResponse_DatasetResponse: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -7770,7 +7770,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             bmUnit: , optional
 
         Returns:
-            API response data
+            List[ActualGenerationOutputPerGenerationUnitDatasetResponse]: List of ActualGenerationOutputPerGenerationUnitDatasetResponse objects
         """
         params = {}
         params["from"] = from_
@@ -7813,7 +7813,7 @@ This API endpoint provides a maximum data output range of 2 years (731 days).
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IgcaDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7850,7 +7850,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[IgcaDatasetRow]: List of IgcaDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7891,7 +7891,7 @@ This API endpoint provides a maximum data output range of 2 years (731 days).
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IgcpuDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7932,7 +7932,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[IgcpuDatasetRow]: List of IgcpuDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -7969,7 +7969,7 @@ This API endpoint provides a maximum data output range of 7 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ActualTotalLoadPerBiddingZoneDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8006,7 +8006,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[ActualTotalLoadPerBiddingZoneDatasetRow]: List of ActualTotalLoadPerBiddingZoneDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8043,7 +8043,7 @@ This API endpoint provides a maximum data output range of 7 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DayAheadTotalLoadPerBiddingZoneDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8080,7 +8080,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[DayAheadTotalLoadPerBiddingZoneDatasetRow]: List of DayAheadTotalLoadPerBiddingZoneDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8118,7 +8118,7 @@ This API endpoint has a maximum range of 367 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            WeekAheadTotalLoadPerBiddingZoneDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8156,7 +8156,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[WeekAheadTotalLoadPerBiddingZoneDatasetRow]: List of WeekAheadTotalLoadPerBiddingZoneDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8193,7 +8193,7 @@ It has a maximum date range of 7 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DayAheadAggregatedGenerationDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8230,7 +8230,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[DayAheadAggregatedGenerationDatasetRow]: List of DayAheadAggregatedGenerationDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8268,7 +8268,7 @@ This API endpoint has a maximum range of 367 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            MonthAheadTotalLoadPerBiddingZoneDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8306,7 +8306,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[MonthAheadTotalLoadPerBiddingZoneDatasetRow]: List of MonthAheadTotalLoadPerBiddingZoneDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8344,7 +8344,7 @@ This API endpoint has a maximum range of 367 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            YearAheadTotalLoadPerBiddingZoneDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8382,7 +8382,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[YearAheadTotalLoadPerBiddingZoneDatasetRow]: List of YearAheadTotalLoadPerBiddingZoneDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8419,7 +8419,7 @@ This API endpoint has a maximum range of 2 years (731 days).
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            CostsOfCongestionManagementDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8456,7 +8456,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[CostsOfCongestionManagementDatasetRow]: List of CostsOfCongestionManagementDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8496,7 +8496,7 @@ This API endpoint has a maximum range of 20 years (7305 days).
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            YearAheadForecastMarginDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8536,7 +8536,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[YearAheadForecastMarginDatasetRow]: List of YearAheadForecastMarginDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8573,7 +8573,7 @@ This API endpoint has a maximum range of 2 years (731 days).
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AbucDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8610,7 +8610,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[AbucDatasetRow]: List of AbucDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8647,7 +8647,7 @@ This API endpoint has a maximum range of 2 years (731 days).
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            PpbrDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8684,7 +8684,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[PpbrDatasetRow]: List of PpbrDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8721,7 +8721,7 @@ This API endpoint has a maximum range of 1 year (367 days).
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            FeibDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8758,7 +8758,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[FeibDatasetRow]: List of FeibDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8795,7 +8795,7 @@ This API endpoint has a maximum range of 7 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AobeDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8832,7 +8832,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[AobeDatasetRow]: List of AobeDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8869,7 +8869,7 @@ This API endpoint has a maximum range of 7 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            BebDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8906,7 +8906,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[BebDatasetRow]: List of BebDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8943,7 +8943,7 @@ This API endpoint has a maximum range of 1 day.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            CbsDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -8980,7 +8980,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[CbsDatasetRow]: List of CbsDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -9017,7 +9017,7 @@ This API endpoint has a maximum range of 1 day.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            PbcDatasetRow_DatasetResponse: Typed response object
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -9054,7 +9054,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             publishDateTimeTo: 
 
         Returns:
-            API response data
+            List[PbcDatasetRow]: List of PbcDatasetRow objects
         """
         params = {}
         params["publishDateTimeFrom"] = publishDateTimeFrom
@@ -9081,11 +9081,15 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
 
         This endpoint has been moved to balancing/settlement/default-notices.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         if format is not None:
@@ -9137,7 +9141,7 @@ If omitted, latest events are returned., optional
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RestorationZoneDemandRestoredDatasetRow_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["count"] = count
@@ -9189,7 +9193,7 @@ Settlement date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandOutturn_ResponseWithMetadata: Typed response object
         """
         params = {}
         if settlementDateFrom is not None:
@@ -9238,7 +9242,7 @@ Settlement date parameters must be provided in the exact format yyyy-MM-dd.
             settlementPeriod: , optional
 
         Returns:
-            API response data
+            List[DemandOutturn]: List of DemandOutturn objects
         """
         params = {}
         if settlementDateFrom is not None:
@@ -9284,7 +9288,7 @@ This API endpoint has a maximum range of 2 years (731 days).
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndodRow_ResponseWithMetadata: Typed response object
         """
         params = {}
         if settlementDateFrom is not None:
@@ -9328,7 +9332,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             settlementDateTo: , optional
 
         Returns:
-            API response data
+            List[IndodRow]: List of IndodRow objects
         """
         params = {}
         if settlementDateFrom is not None:
@@ -9368,7 +9372,7 @@ Use datasets endpoints for full dataset access.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            List[RollingSystemDemand]: List of RollingSystemDemand objects
         """
         params = {}
         if resolution is not None:
@@ -9413,7 +9417,7 @@ Date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandOutturnPeak_ResponseWithMetadata: Typed response object
         """
         params = {}
         if from_ is not None:
@@ -9470,7 +9474,7 @@ Date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicativeDemandPeak_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["data"] = data
@@ -9512,7 +9516,7 @@ during the Triad season. For the data from the latest settlement runs for the Tr
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicativeDemandPeak_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -9546,7 +9550,7 @@ season dates please use the `peak/indicative` endpoint.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicativeDemandPeak_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -9586,7 +9590,7 @@ All Triad peaks are at least 10 days clear of one another.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicativeDemandPeak_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["data"] = data
@@ -9616,11 +9620,15 @@ All Triad peaks are at least 10 days clear of one another.
 
         This endpoint has been moved to demand/outturn.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         if format is not None:
@@ -9638,11 +9646,15 @@ All Triad peaks are at least 10 days clear of one another.
 
         This endpoint has been moved to demand/outturn/stream.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         if format is not None:
@@ -9660,11 +9672,15 @@ All Triad peaks are at least 10 days clear of one another.
 
         This endpoint has been moved to generation/outturn.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         if format is not None:
@@ -9682,11 +9698,15 @@ All Triad peaks are at least 10 days clear of one another.
 
         This endpoint has been moved to demand/outturn/summary.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         if format is not None:
@@ -9704,11 +9724,15 @@ All Triad peaks are at least 10 days clear of one another.
 
         This endpoint has been moved to demand/actual/total.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         if format is not None:
@@ -9741,7 +9765,7 @@ This API endpoint has a maximum range of 7 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ActualTotalLoadPerBiddingZone_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -9785,7 +9809,7 @@ The data is reported both at national and boundary (system zones) level. Boundar
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastDayAhead_ResponseWithMetadata: Typed response object
         """
         params = {}
         if boundary is not None:
@@ -9818,7 +9842,7 @@ The data is reported both at national and boundary (system zones) level. Boundar
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -9849,7 +9873,7 @@ The data is reported both at national and boundary (system zones) level. Boundar
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -9889,7 +9913,7 @@ The data is reported both at national and boundary (system zones) level. Boundar
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastDayAhead_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -9925,7 +9949,7 @@ The data is reported both at national and boundary (system zones) level. Boundar
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -9959,7 +9983,7 @@ The data is reported both at national and boundary (system zones) level. Boundar
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -10004,7 +10028,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastDayAhead_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -10043,7 +10067,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["forecastDate"] = forecastDate
@@ -10079,7 +10103,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["forecastYear"] = forecastYear
@@ -10119,7 +10143,7 @@ Results are filtered by settlement time, and only the latest published forecast 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastDayAhead_ResponseWithMetadata: Typed response object
         """
         params = {}
         if boundary is not None:
@@ -10160,7 +10184,7 @@ This endpoint has an optimised JSON payload and aimed at frequent request for th
             to_: 
 
         Returns:
-            API response data
+            List[DayAheadDemandForecastRow]: List of DayAheadDemandForecastRow objects
         """
         params = {}
         if boundary is not None:
@@ -10200,7 +10224,7 @@ Results are filtered by settlement time, and only the earliest published forecas
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastDayAhead_ResponseWithMetadata: Typed response object
         """
         params = {}
         if boundary is not None:
@@ -10241,7 +10265,7 @@ This endpoint has an optimised JSON payload and aimed at frequent request for th
             to_: 
 
         Returns:
-            API response data
+            List[DayAheadDemandForecastRow]: List of DayAheadDemandForecastRow objects
         """
         params = {}
         if boundary is not None:
@@ -10284,7 +10308,7 @@ Date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandForecastPeak_ResponseWithMetadata: Typed response object
         """
         params = {}
         if boundary is not None:
@@ -10332,7 +10356,7 @@ This API endpoint has a maximum range of 7 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DayAheadTotalLoadPerBiddingZone_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -10381,7 +10405,7 @@ Date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            WeekAheadTotalLoadPerBiddingZone_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -10417,7 +10441,7 @@ with minimum possible and maximum available total loads in MW values.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            WeekAheadTotalLoadPerBiddingZone_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -10464,7 +10488,7 @@ This endpoint filters by startTime, and groups results by settlement period.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ActualGenerationBySettlementPeriod_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -10502,7 +10526,7 @@ for the last half hour and 24 hours for each generation type.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            List[AgptSummaryData]: List of AgptSummaryData objects
         """
         params = {}
         if format is not None:
@@ -10546,7 +10570,7 @@ This endpoint filters by startTime and provides a maximum data output range of 7
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ActualGenerationWindSolar_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -10598,7 +10622,7 @@ Settlement date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            HalfHourlyInterconnectorOutturn_ResponseWithMetadata: Typed response object
         """
         params = {}
         if publishDateTimeFrom is not None:
@@ -10643,7 +10667,7 @@ Settlement date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            List[GenerationByFuelType]: List of GenerationByFuelType objects
         """
         params = {}
         if fuelType is not None:
@@ -10683,7 +10707,7 @@ Use raw dataset endpoints under /datasets for full access.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            List[OutturnGenerationBySettlementPeriod]: List of OutturnGenerationBySettlementPeriod objects
         """
         params = {}
         if startTime is not None:
@@ -10716,11 +10740,15 @@ Use raw dataset endpoints under /datasets for full access.
 
         This endpoint has been moved to generation/outturn/interconnectors.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         if format is not None:
@@ -10738,11 +10766,15 @@ Use raw dataset endpoints under /datasets for full access.
 
         This endpoint has been moved to generation/outturn/current.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         if format is not None:
@@ -10774,7 +10806,7 @@ Between 1 and 10 units should be queried when using the `bmUnit` level., optiona
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         if level is not None:
@@ -10821,7 +10853,7 @@ Between 1 and 10 units should be queried when using the `bmUnit` level., optiona
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         if level is not None:
@@ -10870,7 +10902,7 @@ Between 1 and 10 units should be queried when using the `bmUnit` level., optiona
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -10920,7 +10952,7 @@ Between 1 and 10 units should be queried when using the `bmUnit` level., optiona
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -10972,7 +11004,7 @@ Between 1 and 10 units should be queried when using the `bmUnit` level., optiona
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["forecastDate"] = forecastDate
@@ -11024,7 +11056,7 @@ Between 1 and 10 units should be queried when using the `bmUnit` level., optiona
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AvailabilityWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["year"] = year
@@ -11073,7 +11105,7 @@ This API endpoint has a maximum range of 7 days.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DayAheadAggregatedGeneration_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -11122,7 +11154,7 @@ This endpoint filters by startTime and provides a maximum data output range of 7
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DayAheadGenerationForWindAndSolar_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -11161,7 +11193,7 @@ Updated data is published by NGESO up to 8 times a day at 03:30, 05:30, 08:30, 1
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            WindGenerationForecast_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -11196,7 +11228,7 @@ Results are filtered by a range of DateTime parameters.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            WindGenerationForecast_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -11233,7 +11265,7 @@ Results are filtered by a range of DateTime parameters.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            WindGenerationForecast_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["startTime"] = startTime
@@ -11272,7 +11304,7 @@ Results are filtered by a range of DateTime parameters.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            WindGenerationForecast_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -11311,7 +11343,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             to_: 
 
         Returns:
-            API response data
+            List[WindGenerationForecastRow]: List of WindGenerationForecastRow objects
         """
         params = {}
         params["from"] = from_
@@ -11349,7 +11381,7 @@ Results are filtered by a range of DateTime parameters.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            WindGenerationForecast_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -11388,7 +11420,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             to_: 
 
         Returns:
-            API response data
+            List[WindGenerationForecastRow]: List of WindGenerationForecastRow objects
         """
         params = {}
         params["from"] = from_
@@ -11428,7 +11460,7 @@ Date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            WindGenerationForecast_ResponseWithMetadata: Typed response object
         """
         params = {}
         if from_ is not None:
@@ -11458,8 +11490,12 @@ Date parameters must be provided in the exact format yyyy-MM-dd.
 
         This endpoint provides a success response code (200) with status code 2 if the service is alive
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
 
@@ -11481,7 +11517,7 @@ Date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicatedForecast_ResponseWithMetadata: Typed response object
         """
         params = {}
         if boundary is not None:
@@ -11516,7 +11552,7 @@ Date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicatedForecast_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -11558,7 +11594,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicatedForecast_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["settlementDate"] = settlementDate
@@ -11600,7 +11636,7 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            SettlementMessageResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -11639,7 +11675,7 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            SettlementStackResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -11677,7 +11713,7 @@ In JSON format, decimal values are returned as strings to avoid loss of precisio
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            SettlementSummaryResponse: Typed response object
         """
         params = {}
         if format is not None:
@@ -11708,7 +11744,7 @@ In JSON format, decimal values are returned as strings to avoid loss of precisio
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            CreditDefaultNoticeResponse_DatasetResponse: Typed response object
         """
         params = {}
         if format is not None:
@@ -11746,7 +11782,7 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            SystemPriceResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -11787,7 +11823,7 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            AcceptanceVolumeResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         if bmUnit is not None:
@@ -11830,7 +11866,7 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicativeVolumeResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         if bmUnit is not None:
@@ -11873,7 +11909,7 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            IndicativeCashflowResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         if bmUnit is not None:
@@ -11912,7 +11948,7 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            HistoricAcceptanceResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -11951,7 +11987,7 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            MarketDepthResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -11977,12 +12013,16 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
         """
         This endpoint is obsolete, and this location may be removed with no further notice. Use /remit/* or /datasets/REMIT endpoints instead.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             eventStart: 
             eventEnd: 
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         params["eventStart"] = eventStart
@@ -11998,11 +12038,15 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
         """
         This endpoint is obsolete, and this location may be removed with no further notice. Use /remit/* or /datasets/REMIT endpoints instead.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             messageId: 
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         params["messageId"] = messageId
@@ -12019,11 +12063,15 @@ Settlement date parameter must be provided in the exact format yyyy-MM-dd.
 
         This endpoint has been moved to forecast/system/loss-of-load.
 
+        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]
+        The OpenAPI specification does not define a response schema for this endpoint.
+        You will not get type checking or IDE autocomplete for the response.
+
         Args:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            Dict[str, Any]: Untyped response data (no schema available)
         """
         params = {}
         if format is not None:
@@ -12046,7 +12094,7 @@ in MW values. The Daily API outputs the latest published data for daily margin f
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastMarginDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -12080,7 +12128,7 @@ The historic API outputs the latest published data for historic daily margin for
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastMarginDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -12117,7 +12165,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastMarginDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["forecastDate"] = forecastDate
@@ -12152,7 +12200,7 @@ The weekly API outputs the latest published data for weekly margin forecast for 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastMarginWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         if range is not None:
@@ -12190,7 +12238,7 @@ This historic API output 2 weeks ahead to 156 weeks ahead in MW values
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastMarginWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -12231,7 +12279,7 @@ The Daily API outputs the latest published data for daily margin forecast for D+
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastMarginWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["year"] = year
@@ -12313,7 +12361,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            MarketIndexResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -12391,7 +12439,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            NonBmStorResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -12465,7 +12513,7 @@ Before parameter must be specified if this is specified., optional
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            NonBmStorResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["count"] = count
@@ -12546,7 +12594,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            BalancingServicesVolume_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -12581,7 +12629,7 @@ Filtering from settlement date and period to settlement date and period:
         This endpoint provides a current list of fuel types
 
         Returns:
-            API response data
+            List[str]: List of string values
         """
         params = {}
 
@@ -12600,7 +12648,7 @@ Filtering from settlement date and period to settlement date and period:
         This endpoint provides a current list of participant IDs received from REMIT messages
 
         Returns:
-            API response data
+            List[str]: List of string values
         """
         params = {}
 
@@ -12619,7 +12667,7 @@ Filtering from settlement date and period to settlement date and period:
         This endpoint provides a current list of asset IDs received from REMIT messages
 
         Returns:
-            API response data
+            List[str]: List of string values
         """
         params = {}
 
@@ -12638,7 +12686,7 @@ Filtering from settlement date and period to settlement date and period:
         This endpoint provides a current list of fuel types received from REMIT messages
 
         Returns:
-            API response data
+            List[str]: List of string values
         """
         params = {}
 
@@ -12657,7 +12705,7 @@ Filtering from settlement date and period to settlement date and period:
         This endpoint provides a current list of BM units held by Elexon
 
         Returns:
-            API response data
+            List[BmUnitData]: List of BmUnitData objects
         """
         params = {}
 
@@ -12682,7 +12730,7 @@ Filtering from settlement date and period to settlement date and period:
         This endpoint provides a current list of interconnectors
 
         Returns:
-            API response data
+            List[InterconnectorData]: List of InterconnectorData objects
         """
         params = {}
 
@@ -12713,7 +12761,7 @@ Filtering from settlement date and period to settlement date and period:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RemitMessageWithId_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["messageId"] = messageId
@@ -12750,7 +12798,7 @@ it returns the REMIT message revision with the latest revision number.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RemitMessageWithId_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["mrid"] = mrid
@@ -12791,7 +12839,7 @@ The message can be specified in two ways:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RemitMessageIdentifierWithUrl_ResponseWithMetadata: Typed response object
         """
         params = {}
         if mrid is not None:
@@ -12852,7 +12900,7 @@ The message can be specified in two ways:
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RemitMessageIdentifierWithUrl_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -12927,7 +12975,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             profileOnly: , optional
 
         Returns:
-            API response data
+            List[RemitMessageIdentifierWithUrl]: List of RemitMessageIdentifierWithUrl objects
         """
         params = {}
         params["from"] = from_
@@ -13000,7 +13048,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RemitMessageIdentifierWithUrl_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -13075,7 +13123,7 @@ This endpoint has an optimised JSON payload and is aimed at frequent requests fo
             profileOnly: , optional
 
         Returns:
-            API response data
+            List[RemitMessageIdentifierWithUrl]: List of RemitMessageIdentifierWithUrl objects
         """
         params = {}
         params["from"] = from_
@@ -13129,7 +13177,7 @@ This data can be used as a proxy for rolling system demand.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            RollingSystemDemand_ResponseWithMetadata: Typed response object
         """
         params = {}
         if from_ is not None:
@@ -13174,7 +13222,7 @@ If no run type is specified, for each settlement period only the single data poi
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            TotalExemptSupplyVolumeResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         if settlementRunType is not None:
@@ -13214,7 +13262,7 @@ This API endpoint has a maximum range of 24 hours.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            SoSoPrices_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -13248,7 +13296,7 @@ The Daily API outputs the latest published data for daily surplus forecast for D
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastSurplusDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         if format is not None:
@@ -13282,7 +13330,7 @@ The historic API outputs the latest published data for historic daily surplus fo
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastSurplusDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -13319,7 +13367,7 @@ Date parameter must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastSurplusDaily_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["forecastDate"] = forecastDate
@@ -13354,7 +13402,7 @@ The weekly API outputs the latest published data for weekly surplus forecast for
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastSurplusWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         if range is not None:
@@ -13393,7 +13441,7 @@ Historical published data of weekly surplus forecasts for a given publish date i
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastSurplusWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["publishTime"] = publishTime
@@ -13434,7 +13482,7 @@ The weekly API outputs the latest published data for weekly surplus forecast for
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            ForecastSurplusWeekly_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["year"] = year
@@ -13474,7 +13522,7 @@ can be filtered by a range of DateTime parameters. This endpoint is useful for a
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            SystemFrequency_ResponseWithMetadata: Typed response object
         """
         params = {}
         if from_ is not None:
@@ -13513,7 +13561,7 @@ request for the frequency data.
             to_: , optional
 
         Returns:
-            API response data
+            List[SystemFrequency]: List of SystemFrequency objects
         """
         params = {}
         if from_ is not None:
@@ -13555,7 +13603,7 @@ request for the frequency data.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            SystemWarningsData_ResponseWithMetadata: Typed response object
         """
         params = {}
         if warningType is not None:
@@ -13598,7 +13646,7 @@ If no query parameters are supplied all data is returned.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            DemandControlInstructionData_ResponseWithMetadata: Typed response object
         """
         params = {}
         if from_ is not None:
@@ -13651,7 +13699,7 @@ before the start of the settlement period. That is, if the most recent forecast 
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            LossOfLoadProbabilityDeratedMarginResponse_ResponseWithMetadata: Typed response object
         """
         params = {}
         params["from"] = from_
@@ -13696,7 +13744,7 @@ Date parameters must be provided in the exact format yyyy-MM-dd.
             format: Response data format. Use json/xml to include metadata., optional
 
         Returns:
-            API response data
+            TemperatureData_ResponseWithMetadata: Typed response object
         """
         params = {}
         if from_ is not None:

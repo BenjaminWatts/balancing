@@ -290,6 +290,13 @@ class ClientCodeGenerator:
         if description and description != summary:
             docstring_lines.append(f"        {description}")
             docstring_lines.append("")
+        
+        # Add warning for untyped endpoints
+        if response_model == "Dict[str, Any]":
+            docstring_lines.append("        ⚠️  WARNING: This endpoint returns untyped Dict[str, Any]")
+            docstring_lines.append("        The OpenAPI specification does not define a response schema for this endpoint.")
+            docstring_lines.append("        You will not get type checking or IDE autocomplete for the response.")
+            docstring_lines.append("")
 
         if params["path"] or params["query"]:
             docstring_lines.append("        Args:")
@@ -302,7 +309,15 @@ class ClientCodeGenerator:
             docstring_lines.append("")
 
         docstring_lines.append("        Returns:")
-        docstring_lines.append("            API response data")
+        if response_model == "Dict[str, Any]":
+            docstring_lines.append("            Dict[str, Any]: Untyped response data (no schema available)")
+        elif response_model.startswith("List[str]"):
+            docstring_lines.append("            List[str]: List of string values")
+        elif response_model.startswith("List["):
+            inner = response_model[5:-1]
+            docstring_lines.append(f"            {response_model}: List of {inner} objects")
+        else:
+            docstring_lines.append(f"            {response_model}: Typed response object")
         docstring_lines.append('        """')
 
         docstring = "\n".join(docstring_lines)
